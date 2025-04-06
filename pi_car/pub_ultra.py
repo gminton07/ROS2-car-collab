@@ -17,27 +17,47 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 
-import board
-import adafruit_mmc56x3
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
 class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(String, 'topic_mmc5603', 10)
-        timer_period = 3  # TODO: change this later
+        self.publisher_ = self.create_publisher(String, 'topic_ultra', 10)
+        timer_period = 2  # TODO: change later
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
-        
-        self.i2c = board.I2C() # uses board.SCL and board.SDA
-        self.sensor = adafruit_mmc56x3.MMC5603(self.i2c)
+
+        # Setup pins
+        self.TRIG = 23
+        self.ECHO = 24
+        GPIO.setup(self.TRIG, GPIO.OUT)
+        GPIO.output(self.TRIG, False)
+        GPIO.setup(self.ECHO, GPIO.IN)
+
+        time.sleep(0.5)
+        start_time = time.time()
 
     def timer_callback(self):
         msg = String()
-        mag_x, mag_y, mag_z = self.sensor.magnetic
-        msg.data = "{0:10.2f} {1:10.2f} {2:10.2f}".format(mag_x, mag_y, mag_z)
+
+        GPIO.output(self.TRIG, True)
+        time.sleep(0.00001)
+        GPIO.output(self.TRIG, False)
+
+        # Find beginning and end of ultrasonic pulse
+        while GPIO.input(self.ECHO) == 0:
+            start_time = time.time()
+        while GPIO.input(self.ECHO) == 1:
+            end_time = time.time()
+
+        distance = (end_time - start_time)*34300/2
+        msg.data = "{0:10.2f}".format(distance)
         self.publisher_.publish(msg)
-        #self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
 
 

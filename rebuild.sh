@@ -4,6 +4,7 @@
 # Before using, you must add executable permissions through
 # $ chmod +x rebuild.sh
 
+echo ""
 echo "Hello cruel world!"
 echo ""
 

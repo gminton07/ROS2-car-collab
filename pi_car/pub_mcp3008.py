@@ -17,27 +17,34 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 
-import board
-import adafruit_mmc56x3
+# Import MCP3008 libraries
+import Adafruit_MCP3008
+import RPi.GPIO as GPIO
+from Adafruit_GPIO.GPIO import RPiGPIOAdapter as Adafruit_GPIO_Adapter
 
 class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(String, 'topic_mmc5603', 10)
-        timer_period = 3  # TODO: change this later
+        self.publisher_ = self.create_publisher(String, 'topic_mcp3008', 10)
+        timer_period = 2  # TODO: change this later
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
         
-        self.i2c = board.I2C() # uses board.SCL and board.SDA
-        self.sensor = adafruit_mmc56x3.MMC5603(self.i2c)
+        # Configure SPI
+        self.CLK = 40   # pin 13
+        self.MISO = 21  # pin 12
+        self.MOSI = 19  # pin 11
+        self.CS = 26    # pin 10
+        self.gpio_adapter = Adafruit_GPIO_Adapter(GPIO, mode=GPIO.BOARD)
+        self.sensor = Adafruit_MCP3008.MCP3008(clk=self.CLK, cs=self.CS, miso=self.MISO, mosi=self.MOSI, gpio=self.gpio_adapter)
 
     def timer_callback(self):
         msg = String()
-        mag_x, mag_y, mag_z = self.sensor.magnetic
-        msg.data = "{0:10.2f} {1:10.2f} {2:10.2f}".format(mag_x, mag_y, mag_z)
+        adc_read = self.sensor.read_adc(0) # TODO: Verify which pin is used
+        msg.data = "{0:10.2f}".format(adc_read)
         self.publisher_.publish(msg)
-        #self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
 
 

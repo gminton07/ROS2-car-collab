@@ -24,9 +24,13 @@ setup(
     entry_points={
         'console_scripts': [
             'pub_imu      = pi_car.pub_imu:main',
-            'pub_keyboard = pi_car.pub_keyboard:main',
             'pub_mmc5603  = pi_car.pub_mmc5603:main',
+            'pub_ultra    = pi_car.pub_ultra:main',
+            'pub_mcp3008  = pi_car.pub_mcp3008:main',
+            'pub_camera   = pi_car.pub_camera:main',
+            'pub_keyboard = pi_car.pub_keyboard:main',
             'listen3      = pi_car.listen3:main',
+            'controller   = pi_car.controller:main',
         ],
     },
 )
