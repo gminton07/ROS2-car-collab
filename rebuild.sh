@@ -4,8 +4,9 @@ echo "Hello cruel world!"
 echo ""
 
 cd /home/gabe/ros2_ws
-colcon build --packages-select sample_pubsub
+colcon build --packages-select pi_car
 source /home/gabe/ros2_ws/install/setup.bash
+## TODO: change "gabe" to your username
 
 echo "Finished"
 echo ""

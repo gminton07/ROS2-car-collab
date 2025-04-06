@@ -1,6 +1,8 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob    # Allows launch files to be read
 
-package_name = 'sample_pubsub'
+package_name = 'pi_car'
 
 setup(
     name=package_name,
@@ -10,6 +12,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -20,10 +23,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'pub_imu      = sample_pubsub.pub_imu:main',
-            'pub_keyboard = sample_pubsub.pub_keyboard:main',
-            'pub_mmc5603  = sample_pubsub.pub_mmc5603:main',
-            'listen3      = sample_pubsub.listen3:main',
+            'pub_imu      = pi_car.pub_imu:main',
+            'pub_keyboard = pi_car.pub_keyboard:main',
+            'pub_mmc5603  = pi_car.pub_mmc5603:main',
+            'listen3      = pi_car.listen3:main',
         ],
     },
 )
