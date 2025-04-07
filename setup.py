@@ -31,6 +31,8 @@ setup(
             'pub_keyboard = pi_car.pub_keyboard:main',
             'listen3      = pi_car.listen3:main',
             'controller   = pi_car.controller:main',
+            'sub_motor    = pi_car.sub_motor:main',
+            'sub_servo    = pi_car.sub_servo:main',
         ],
     },
 )

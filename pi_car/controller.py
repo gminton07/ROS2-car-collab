@@ -54,6 +54,8 @@ class SubscriberPublisher(Node):
             10)
         self.subscription  # prevent unused variable warning
         self.get_logger().info('I initialized the subscriber')
+        self.publisher_motor = self.create_publisher(String, 'topic_motor', 10)
+        self.publisher_servo = self.create_publisher(String, 'topic_servo', 10)
         # status is a global that I'll use to print
         # 1-5603    2-imu   3-ultra 4-camera    5-3008  6-all
         # While I'm not a fan of globals, in this case, you can use 
@@ -115,10 +117,32 @@ class SubscriberPublisher(Node):
             if (self.status > 4):
                 self.status = 0
 
+    def publish_motor(self, dc, direction):
+        msg = String()
+        dutyCycle = dc
+        direction = direction
+        msg.data = "{0} {1}".format(dutyCycle, direction)   # TODO: change msg format
+        self.publisher_motor.publish(msg)
+        self.get_logger().info('Publishing motor: "%s"' % msg.data)
+
+    def publish_servo(self, args):
+        msg = String()
+        [steer, swivel, nod] = args
+        msg.data = "{0} {1} {2}".format(steer, swivel, nod)
+        self.publisher_servo.publish(msg)
+        self.get_logger().info('Publishing servo: "%s"' % msg.data)
+
 def main(args=None):
     rclpy.init(args=args)
 
     subscriber_publisher = SubscriberPublisher()
+
+    subscriber_publisher.publish_motor(dc=10, direction='forward')
+    subscriber_publisher.publish_servo(args=[10, 15, 20])
+    #TODO: This is one method for updating motor and servo values
+    # there's probably something better. If these 3 function calls (motor to spin)
+    # are in a (while True:) block that could work.
+    
 
     rclpy.spin(subscriber_publisher)
 
