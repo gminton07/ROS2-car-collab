@@ -34,11 +34,14 @@ class MinimalPublisher(Node):
 
     def timer_callback(self):
         msg = String()
-        gyro_x,  gyro_y,  gyro_z  = self.mpu.gyro
         accel_x, accel_y, accel_z = self.mpu.acceleration
-        msg.data = "{0:10.2f} {1:10.2f} {2:10.2f} {3:10.2f} {4:10.2f} {5:10.2f}".format( accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
+        gyro_x,  gyro_y,  gyro_z  = self.mpu.gyro
+        #accel = self.mpu.acceleration
+        #gyro = self.mpu.gyro
+        msg.data = "{0:10.2f} {1:10.2f} {2:10.2f} {3:10.2f} {4:10.2f} {5:10.2f}".format(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
+        #msg.data = "{0} {1}".format(accel, gyro)
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+        #self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
 
 

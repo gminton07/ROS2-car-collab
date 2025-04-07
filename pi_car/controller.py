@@ -17,6 +17,8 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 
+import ast  # For converting camera.frame back into an array
+
 class SubscriberPublisher(Node):
     def __init__(self):
         super().__init__('subscriber_publisher')
@@ -73,6 +75,7 @@ class SubscriberPublisher(Node):
 
     def listener_imu(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'imu %s', data.data)
+        
         [ax, ay, az, gx, gy, gz] = str(msg.data).split()
         ax = float(ax)  # destringify
         ay = float(ay)
@@ -92,15 +95,14 @@ class SubscriberPublisher(Node):
             self.get_logger().info(f'distance: {distance:.2f}')
 
     def listener_camera(self, msg):
-        [ret, frame] = str(msg.data).split()
-        ret = float(ret)
-        frame = float(frame)
+        [ret, *frame] = str(msg.data).split()
+        frame = ast.literal_eval(str(frame))
         if (self.status == 4 or self.status == 6):
             self.get_logger().info(f'ret: {ret}\tframe: {frame}')
 
     def listener_mcp3008(self, msg):
         [adc] = str(msg.data).split()
-        adc = float(adc)
+        adc = int(adc)
         if (self.status == 5 or self.status == 6):
             self.get_logger().info(f'adc: {adc}')
 

@@ -23,15 +23,15 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(String, 'topic_imu', 10)
+        self.publisher_ = self.create_publisher(String, 'topic_camera', 10)
         timer_period = 2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
         
         self.cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 2560)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1440)
-        # TODO: change to 640 x 480?
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        # TODO: change to 640 x 480 or 2560 x 1440?
 
     def timer_callback(self):
         msg = String()
@@ -39,7 +39,7 @@ class MinimalPublisher(Node):
         msg.data = "{0} {1}".format(ret, frame)
         #msg.data = "{0}".format(self.i)     #TODO: change when working on car
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+        #self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
 
 
