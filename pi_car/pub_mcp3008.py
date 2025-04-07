@@ -42,7 +42,7 @@ class MinimalPublisher(Node):
     def timer_callback(self):
         msg = String()
         adc_read = self.sensor.read_adc(0) # TODO: Verify which pin is used
-        msg.data = "{0:10.2f}".format(adc_read)
+        msg.data = "{0:10f}".format(adc_read)
         self.publisher_.publish(msg)
         self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1

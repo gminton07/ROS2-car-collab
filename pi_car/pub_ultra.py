@@ -57,7 +57,7 @@ class MinimalPublisher(Node):
         distance = (end_time - start_time)*34300/2
         msg.data = "{0:10.2f}".format(distance)
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+        #self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
 
 

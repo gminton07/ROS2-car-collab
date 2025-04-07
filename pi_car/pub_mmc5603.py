@@ -35,7 +35,8 @@ class MinimalPublisher(Node):
     def timer_callback(self):
         msg = String()
         mag_x, mag_y, mag_z = self.sensor.magnetic
-        msg.data = "{0:10.2f} {1:10.2f} {2:10.2f}".format(mag_x, mag_y, mag_z)
+        temp = self.sensor.temperature
+        msg.data = "{0:10.2f} {1:10.2f} {2:10.2f} {3:10.2f}".format(mag_x, mag_y, mag_z, temp)
         self.publisher_.publish(msg)
         #self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1

@@ -17,9 +17,9 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 
-class MinimalSubscriber(Node):
+class SubscriberPublisher(Node):
     def __init__(self):
-        super().__init__('minimal_subscriber')
+        super().__init__('subscriber_publisher')
         self.subscription = self.create_subscription(
             String,
             'topic_mmc5603',
@@ -61,24 +61,28 @@ class MinimalSubscriber(Node):
 
     def listener_mmu5603(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'mmc5603 %s', data.data)
-        [mx, my, mz] = str(msg.data).split()
+        [mx, my, mz, temp] = str(msg.data).split()
         mx = float(mx)
         my = float(my)
         mz = float(mz)
+        temp = float(temp)
         if (self.status == 1 or self.status == 6):
-            #print('mms5603: ', data.data)
+            #print('mmu5603: ', data.data)
             #print(f'mx: {mx:.2f}\tmy: {my:.2f}\tmz: {mz:.2f}\ttemp: {temp:.1f}')
-            self.get_logger().info(f'mx: {mx:.2f}\tmy: {my:.2f}\tmz: {mz:.2f}')
+            self.get_logger().info(f'mx: {mx:.2f}\tmy: {my:.2f}\tmz: {mz:.2f}\ttemp: {temp:.2f}')
 
     def listener_imu(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'imu %s', data.data)
-        [ax, ay, az] = str(msg.data).split()
+        [ax, ay, az, gx, gy, gz] = str(msg.data).split()
         ax = float(ax)  # destringify
         ay = float(ay)
         az = float(az)
+        gx = float(gx)
+        gy = float(gy)
+        gz = float(gz)
         if (self.status == 2 or self.status == 6):
             #print(f'ax: {ax:.2f}\tmy: {ay:.2f}\taz: {az:.2f}')
-            self.get_logger().info(f'ax: {ax:.2f}\tmy: {ay:.2f}\taz: {az:.2f}')
+            self.get_logger().info(f'ax: {ax:.2f}\tay: {ay:.2f}\taz: {az:.2f}\tgx: {gx:.2f}\tgy: {gy:.2f}\t gz: {gy:.2f}')
 
     def listener_ultra(self, msg):
         [distance] = str(msg.data).split()
@@ -92,13 +96,13 @@ class MinimalSubscriber(Node):
         ret = float(ret)
         frame = float(frame)
         if (self.status == 4 or self.status == 6):
-            self.get_logget().info(f'ret: {ret}\tframe: {frame}')
+            self.get_logger().info(f'ret: {ret}\tframe: {frame}')
 
     def listener_mcp3008(self, msg):
         [adc] = str(msg.data).split()
         adc = float(adc)
         if (self.status == 5 or self.status == 6):
-            self.getlogger().info(f'adc: {adc}')
+            self.get_logger().info(f'adc: {adc}')
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard %s' % msg.data)
@@ -112,14 +116,14 @@ class MinimalSubscriber(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_subscriber = MinimalSubscriber()
+    subscriber_publisher = SubscriberPublisher()
 
-    rclpy.spin(minimal_subscriber)
+    rclpy.spin(subscriber_publisher)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    minimal_subscriber.destroy_node()
+    subscriber_publisher.destroy_node()
     rclpy.shutdown()
 
 

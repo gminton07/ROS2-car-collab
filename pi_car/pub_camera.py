@@ -36,8 +36,8 @@ class MinimalPublisher(Node):
     def timer_callback(self):
         msg = String()
         ret, frame = self.cap.read()
-        #msg.data = "{0} {1}".format(ret, frame)
-        msg.data = "{0}".format(self.i)
+        msg.data = "{0} {1}".format(ret, frame)
+        #msg.data = "{0}".format(self.i)     #TODO: change when working on car
         self.publisher_.publish(msg)
         self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
