@@ -45,14 +45,14 @@ class MinimalPublisher(Node):
     def timer_callback(self):
         msg = String()
         adc_read = self.sensor.read_adc(0) # TODO: Verify which pin is used
-        self.adc_readings[i] = adc_read
-        mvg_avg = movingAvg(self.adc_readings, self.i, numvals=5)
+        self.adc_readings[self.i] = adc_read
+        mvg_avg = self.movingAvg(self.adc_readings, self.i, numvals=5)
         msg.data = "{0} {1}".format(adc_read, mvg_avg)
         self.publisher_.publish(msg)
         #self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
 
-    def movingAvg(arr, position, numvals=3, wrap=1):
+    def movingAvg(self, arr, position, numvals=3, wrap=1):
         # default to 3 pt moving average with wrap around on getting values 
         # arr       - array
         # posistion - start from this point on averages

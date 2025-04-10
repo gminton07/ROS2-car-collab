@@ -97,16 +97,15 @@ class SubscriberPublisher(Node):
             self.get_logger().info(f'distance: {distance:.2f}')
 
     def listener_camera(self, msg):
-        [frame] = msg.data.split()
-        [ret, *frame] = str(msg.data).split()
-        frame = ast.literal_eval(str(frame))
+        [*frame] = str(msg.data)
+        #frame = ast.literal_eval(str(frame))
         if (self.status == 4 or self.status == 6):
-            self.get_logger().info(f'ret: {ret}\tframe: {frame}')
+            self.get_logger().info(f'frame: {frame}')
 
     def listener_mcp3008(self, msg):
         [adc, mvg_avg] = str(msg.data).split()
         adc = int(adc)
-        mvg_avg = int(mvg_avg)
+        mvg_avg = float(mvg_avg)
         if (self.status == 5 or self.status == 6):
             self.get_logger().info(f'adc: {adc}\tmvgAvg: {mvg_avg}')
 
@@ -120,6 +119,9 @@ class SubscriberPublisher(Node):
                 self.status = 0
 
     def publish_motor(self, dc, direction):
+        # Expected Values:
+        # direction: -1 backward, 0 stop, 1 forward
+        # Duty cycle: percentage
         msg = String()
         dutyCycle = dc
         direction = direction
@@ -132,7 +134,7 @@ class SubscriberPublisher(Node):
         # Should accept values on range [-10, 10] for left -> right
         msg = String()
         [nod, swivel, steer] = args
-        msg.data = "{1} {2} {3}".format(nod, swivel, steer)
+        msg.data = "{0} {1} {2}".format(nod, swivel, steer)
         self.publisher_servo.publish(msg)
         self.get_logger().info('Publishing servo: "%s"' % msg.data)
 
@@ -141,8 +143,8 @@ def main(args=None):
 
     subscriber_publisher = SubscriberPublisher()
 
-    subscriber_publisher.publish_motor(dc=10, direction='forward')
-    subscriber_publisher.publish_servo(args=[10, 15, 20])
+    subscriber_publisher.publish_motor(dc=10, direction=1)
+    subscriber_publisher.publish_servo(args=[-5, 0, 5])
     #TODO: This is one method for updating motor and servo values
     # there's probably something better. If these 3 function calls (motor to spin)
     # are in a (while True:) block that could work.

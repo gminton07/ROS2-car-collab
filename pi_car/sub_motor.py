@@ -20,9 +20,9 @@ class MinimalSubscriber(Node):
         self.in1 = 12
         self.in2 = 13
         self.en = 11
-        self.pwm_pin = motor_init(self.in1, self.in2, self.en, 1000, 50)    # Change starting DC
+        self.pwm_pin = self.motor_init(self.in1, self.in2, self.en, 1000, 50)    # Change starting DC
 
-    def motor_init(in1, in2, en, freq, dutyCycle):
+    def motor_init(self, in1, in2, en, freq, dutyCycle):
         GPIO.setup(in1, GPIO.OUT)
         GPIO.setup(in2,GPIO.OUT)
         GPIO.setup(en,GPIO.OUT)
@@ -32,7 +32,7 @@ class MinimalSubscriber(Node):
         pwm_pin.start(dutyCycle)
         return pwm_pin
 
-    def motor_direction(in1, in2, direction, debug=False):
+    def motor_direction(self, in1, in2, direction, debug=False):
         # direction: -1 backward, 0 stop, 1 forward
         if (direction < 0):
             if debug: print('Set backward')
@@ -52,7 +52,7 @@ class MinimalSubscriber(Node):
         dutyCycle = float(dutyCycle)
         direction = int(direction)
         # TODO: Make smarter to only call motor_direction when direction value changes?
-        motor_direction(self.in1, self.in2, direction)
+        self.motor_direction(self.in1, self.in2, direction)
         self.pwm_pin.ChangeDutyCycle(dutyCycle)
         self.get_logger().info(f'duty cycle: {dutyCycle}\tdirection: {direction}')
 
