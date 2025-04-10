@@ -60,7 +60,7 @@ class SubscriberPublisher(Node):
         # 1-5603    2-imu   3-ultra 4-camera    5-3008  6-all
         # While I'm not a fan of globals, in this case, you can use 
         # globals to pass information from one of the call functions to the other
-        self.status = 6 
+        self.status = 6
 
 
     def listener_mmu5603(self, msg):
@@ -97,16 +97,18 @@ class SubscriberPublisher(Node):
             self.get_logger().info(f'distance: {distance:.2f}')
 
     def listener_camera(self, msg):
+        [frame] = msg.data.split()
         [ret, *frame] = str(msg.data).split()
         frame = ast.literal_eval(str(frame))
         if (self.status == 4 or self.status == 6):
             self.get_logger().info(f'ret: {ret}\tframe: {frame}')
 
     def listener_mcp3008(self, msg):
-        [adc] = str(msg.data).split()
+        [adc, mvg_avg] = str(msg.data).split()
         adc = int(adc)
+        mvg_avg = int(mvg_avg)
         if (self.status == 5 or self.status == 6):
-            self.get_logger().info(f'adc: {adc}')
+            self.get_logger().info(f'adc: {adc}\tmvgAvg: {mvg_avg}')
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard %s' % msg.data)
@@ -126,9 +128,11 @@ class SubscriberPublisher(Node):
         self.get_logger().info('Publishing motor: "%s"' % msg.data)
 
     def publish_servo(self, args):
+        # Assumes args holds a list of PWM values for respective servos
+        # Should accept values on range [-10, 10] for left -> right
         msg = String()
-        [steer, swivel, nod] = args
-        msg.data = "{0} {1} {2}".format(steer, swivel, nod)
+        [nod, swivel, steer] = args
+        msg.data = "{1} {2} {3}".format(nod, swivel, steer)
         self.publisher_servo.publish(msg)
         self.get_logger().info('Publishing servo: "%s"' % msg.data)
 
