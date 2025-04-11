@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="pi_car" exec="pub_mmc5603"   name="mmc5603"  namespace="samplePub"/>
+  <node pkg="pi_car" exec="pub_imu"       name="imu"      namespace="samplePub"/>
+  <node pkg="pi_car" exec="listen3"       name="listen"   namespace="samplePub" output="screen"/>
+</launch>
+
