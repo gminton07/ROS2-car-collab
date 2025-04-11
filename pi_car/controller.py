@@ -16,8 +16,9 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import String
+from sensor_msgs.msg import Image
 
-import ast  # For converting camera.frame back into an array
+from cv_bridge import CvBridge  # For converting camera msg back into image
 
 class SubscriberPublisher(Node):
     def __init__(self):
@@ -38,7 +39,7 @@ class SubscriberPublisher(Node):
             self.listener_ultra,
             10)
         self.subscription = self.create_subscription(
-            String,
+            Image,
             'topic_camera',
             self.listener_camera,
             10)
@@ -61,6 +62,7 @@ class SubscriberPublisher(Node):
         # While I'm not a fan of globals, in this case, you can use 
         # globals to pass information from one of the call functions to the other
         self.status = 6
+        self.bridge = CvBridge()
 
 
     def listener_mmu5603(self, msg):
@@ -97,10 +99,10 @@ class SubscriberPublisher(Node):
             self.get_logger().info(f'distance: {distance:.2f}')
 
     def listener_camera(self, msg):
-        [*frame] = str(msg.data)
+        frame =self.bridge.imgmsg_to_cv2(msg)
         #frame = ast.literal_eval(str(frame))
         if (self.status == 4 or self.status == 6):
-            self.get_logger().info(f'frame: {frame}')
+            self.get_logger().info('Image received successfully!')
 
     def listener_mcp3008(self, msg):
         [adc, mvg_avg] = str(msg.data).split()
