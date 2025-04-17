@@ -7,6 +7,7 @@
   <node pkg="pi_car" exec="controller"    name="control" namespace="samplePub" output="screen"/>
   <node pkg="pi_car" exec="sub_motor"	  name="motor"   namespace="samplePub"/>
   <node pkg="pi_car" exec="sub_servo"     name="servo"   namespace="samplePub"/>
+  <node pkg="pi-car" exec="Camera_Stoplight"    name="stoplight"   namespace="samplePub"/>
   
 </launch>
 
