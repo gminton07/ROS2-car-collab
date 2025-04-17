@@ -15,9 +15,9 @@ import os
 
 import RPi.GPIO as GPIO
 
-class MinimalSubscriber(Node):
+class ServoSub(Node):
     def __init__(self):
-        super().__init__('minimal_subscriber')
+        super().__init__('servo_subscriber')
 
         # Set up I2C and sensor (just like other sensor codes)
         self.i2c = board.I2C()
@@ -145,7 +145,7 @@ class MinimalSubscriber(Node):
         "get boolean from camera, if camera sends True, the set steer so it would turn "
 def main(args=None):
     rclpy.init(args=args)
-    minimal_subscriber = MinimalSubscriber()
+    minimal_subscriber = ServoSub()
     rclpy.spin(minimal_subscriber)
 
     minimal_subscriber.destroy_node()
