@@ -18,10 +18,6 @@ class MinimalSubscriber(Node):
     _servo_swivel_left, _servo_swivel_middle, _servo_swivel_right = (290, 310, 330)
     _servo_steer_left, _servo_steer_middle, _servo_steer_right = (290, 310, 330)
 
-    nod_servo_state = 0     # For debug printout (unnecessary?)
-    #TODO: if this works, add other servos code
-
-
 
     def __init__(self):
         super().__init__('minimal_subscriber')
@@ -41,7 +37,7 @@ class MinimalSubscriber(Node):
             print('servo configuration found!')
             with open(self.PICAR_CONFIG_FILE_NAME, 'r') as config:
                 configuration = config.readlines()
-                if len(configuration < 9):
+                if len(configuration) < 9:
                     print('invalid configuration')
                 else:
                     self.configure_nod_servo_positions(
@@ -50,15 +46,15 @@ class MinimalSubscriber(Node):
                             int(configuration[2]),
                             )
                     self.configure_swivel_servo_positions(
-                                int(configuration[1]),
-                                int(configuration[0]),
-                                int(configuration[2]),
-                                )
-                    self.configure_steer_servo_positions(
-                                int(configuration[1]),
-                                int(configuration[0]),
-                                int(configuration[2]),
-                                )
+                            int(configuration[4]),
+                            int(configuration[3]),
+                            int(configuration[5]),
+                            )
+                self.configure_steer_servo_positions(
+                            int(configuration[7]),
+                            int(configuration[6]),
+                            int(configuration[8]),
+                            )
 
     def _calc_servo_duty_cycle(self, left, middle, right, amount, is_left):
         return (
