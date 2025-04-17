@@ -37,16 +37,16 @@ class MinimalSubscriber(Node):
         # direction: -1 backward, 0 stop, 1 forward
         if (direction < 0):
             if debug: print('Set backward')
-            GPIO.output(in1, GPIO.LOW)
-            GPIO.output(in2, GPIO.HIGH)
+            GPIO.output(in1, GPIO.HIGH)
+            GPIO.output(in2, GPIO.LOW)
         elif (direction == 0):
             if debug: print('Stopped')
             GPIO.output(in1, GPIO.LOW)
             GPIO.output(in2, GPIO.LOW)
         elif (direction > 0):
             if debug: print('Set forwards')
-            GPIO.output(in1, GPIO.HIGH)
-            GPIO.output(in2, GPIO.LOW)
+            GPIO.output(in1, GPIO.LOW)
+            GPIO.output(in2, GPIO.HIGH)
 
     def listener_motor(self, msg):
         [dutyCycle, direction] = str(msg.data).split()     # TODO: Change to preferred variables
