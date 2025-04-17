@@ -1,1 +1,3 @@
 /pi_car/.SampleCode
+*.jpg
+/pi_car/__pycache__

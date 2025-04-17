@@ -23,6 +23,15 @@ from cv_bridge import CvBridge  # For converting camera msg back into image
 import time
 
 class SubscriberPublisher(Node):
+    
+    # Initialize Global variables
+    mx, my, mz, temp = (None, None, None, None)
+    ax, ay, az, gx, gy, gz = (None, None, None, None, None, None)
+    distance = None
+    frame = None
+    adc, adc_diff, mvg_avg = (None, None, None)
+
+
     def __init__(self):
         super().__init__('subscriber_publisher')
         self.subscription = self.create_subscription(
@@ -69,49 +78,51 @@ class SubscriberPublisher(Node):
 
     def listener_mmu5603(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'mmc5603 %s', data.data)
-        [mx, my, mz, temp] = str(msg.data).split()
-        mx = float(mx)
-        my = float(my)
-        mz = float(mz)
-        temp = float(temp)
+        [self.mx, self.my, self.mz, self.temp] = str(msg.data).split()
+        self.mx = float(self.mx)
+        self.my = float(self.my)
+        self.mz = float(self.mz)
+        self.temp = float(self.temp)
         if (self.status == 1 or self.status == 6):
             #print('mmu5603: ', data.data)
-            #print(f'mx: {mx:.2f}\tmy: {my:.2f}\tmz: {mz:.2f}\ttemp: {temp:.1f}')
-            self.get_logger().info(f'mx: {mx:.2f}\tmy: {my:.2f}\tmz: {mz:.2f}\ttemp: {temp:.2f}')
+            #print(f'self.mx: {self.mx:.2f}\tself.my: {self.my:.2f}\tself.mz: {self.mz:.2f}\tself.temp: {self.temp:.1f}')
+            self.get_logger().info(f'self.mx: {self.mx:.2f}\tself.my: {self.my:.2f}\tself.mz: {self.mz:.2f}\tself.temp: {self.temp:.2f}')
 
     def listener_imu(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'imu %s', data.data)
         
-        [ax, ay, az, gx, gy, gz] = str(msg.data).split()
-        ax = float(ax)  # destringify
-        ay = float(ay)
-        az = float(az)
-        gx = float(gx)
-        gy = float(gy)
-        gz = float(gz)
+        [self.ax, self.ay, self.az, self.gx, self.gy, self.gz] = str(msg.data).split()
+        self.ax = float(self.ax)  # destringify
+        self.ay = float(self.ay)
+        self.az = float(self.az)
+        self.gx = float(self.gx)
+        self.gy = float(self.gy)
+        self.gz = float(self.gz)
         if (self.status == 2 or self.status == 6):
-            #print(f'ax: {ax:.2f}\tmy: {ay:.2f}\taz: {az:.2f}')
-            self.get_logger().info(f'ax: {ax:.2f}\tay: {ay:.2f}\taz: {az:.2f}\tgx: {gx:.2f}\tgy: {gy:.2f}\t gz: {gy:.2f}')
+            #print(f'self.ax: {self.ax:.2f}\tself.my: {self.ay:.2f}\tself.az: {self.az:.2f}')
+            self.get_logger().info(f'self.ax: {self.ax:.2f}\tself.ay: {self.ay:.2f}\tself.az: {self.az:.2f}\tself.gx: {self.gx:.2f}\tself.gy: {self.gy:.2f}\t self.gz: {self.gz:.2f}')
 
     def listener_ultra(self, msg):
-        [distance] = str(msg.data).split()
-        distance = float(distance)
+        [self.distance] = str(msg.data).split()
+        self.distance = float(self.distance)
+        if self.distance < 50:
+            self.publish_motor(dc=0, direction=0)
         if (self.status == 3 or self.status == 6):
-            #print(f'distance: {distance}')
-            self.get_logger().info(f'distance: {distance:.2f}')
+            #print(f'self.distance: {self.distance}')
+            self.get_logger().info(f'self.distance: {self.distance:.2f}')
 
     def listener_camera(self, msg):
-        frame =self.bridge.imgmsg_to_cv2(msg)
-        #frame = ast.literal_eval(str(frame))
+        self.frame =self.bridge.imgmsg_to_cv2(msg)
         if (self.status == 4 or self.status == 6):
             self.get_logger().info('Image received successfully!')
 
     def listener_mcp3008(self, msg):
-        [adc, mvg_avg] = str(msg.data).split()
-        adc = int(adc)
-        mvg_avg = float(mvg_avg)
+        [self.adc, self.adc_diff, self.mvg_acg] = str(msg.data).split()
+        self.adc = int(self.adc)
+        self.adc_diff = int(self.adc_diff)
+        self.mvg_acg = float(self.mvg_acg)
         if (self.status == 5 or self.status == 6):
-            self.get_logger().info(f'adc: {adc}\tmvgAvg: {mvg_avg}')
+            self.get_logger().info(f'self.adc: {self.adc}\tself.adc_diff: {self.adc_diff}\tmvgAvg: {self.mvg_acg}')
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard %s' % msg.data)
