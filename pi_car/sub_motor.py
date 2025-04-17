@@ -5,6 +5,7 @@ from std_msgs.msg import String
 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
 class MinimalSubscriber(Node):
     def __init__(self):
@@ -17,9 +18,9 @@ class MinimalSubscriber(Node):
         self.subscription   # prevent unused variable warning
         self.get_logger().info('I initialized the subscriber')
 
-        self.in1 = 12
-        self.in2 = 13
         self.en = 11
+        self.in1 = 13
+        self.in2 = 12
         self.pwm_pin = self.motor_init(self.in1, self.in2, self.en, 1000, 50)    # Change starting DC
 
     def motor_init(self, in1, in2, en, freq, dutyCycle):
@@ -71,4 +72,5 @@ def main(args=None):
     rclpy.shutdown()
 
 if __name__ == '__main__':
+ 
     main()
