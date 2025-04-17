@@ -8,6 +8,13 @@ import Adafruit_PCA9685 as PWM_HAT
 import os.path
 
 class MinimalSubscriber(Node):
+
+    # Global variables
+    PICAR_CONFIG_FILE_NAME = 'PICAR_CONFIG.txt'
+    SERVO_NOD, SERVO_SWIVEL, SERVO_STEER = (0, 1, 2)
+
+
+
     def __init__(self):
         super().__init__('minimal_subscriber')
         self.subscription = self.create_subscription(
@@ -18,21 +25,17 @@ class MinimalSubscriber(Node):
         self.subscription   # prevent unused variable warning
         self.get_logger().info('I initialized the subscriber')
 
-        # Global variables
-        PICAR_CONFIG_FILE_NAME = 'PICAR_CONFIG.txt'
-        SERVO_NOD, SERVO_SWIVEL, SERVO_STEER = (0, 1, 2)
-
         self._servo_global_pwm = PWM_HAT.PCA9685()
         self._servo_global_pwm.set_pwm_freq(60)
 
         # TODO: only initializing NOD, come back for rest later...
         _servo_global_pwm = None
-        _servo_nod_pin, _servo_nod_pwm = (None, None)
+        #_servo_nod_pin, _servo_nod_pwm = (None, None)
         _servo_nod_left, _servo_nod_middle, _servo_nod_right = (290, 310, 330)
         nod_servo_state = 0
 
         # Get config file settings
-        if os.path.exists(self.PICAR_CONFIG_FILE_NAME):
+        if os.path.exists(PICAR_CONFIG_FILE_NAME):
             print('servo configuration found!')
             with open(self.PICAR_CONFIG_FILE_NAME, 'r') as config:
                 configuration = config.readlines()
@@ -44,7 +47,7 @@ class MinimalSubscriber(Node):
                             int(configuration[0]),
                             int(configuration[2]),
                             )
-        self._servo_nod_pin = SERVO_NOD
+        #self._servo_nod_pin = SERVO_NOD
 
     def _calc_servo_duty_cycle(self, left, middle, right, amount, is_left):
         return (
@@ -60,14 +63,14 @@ class MinimalSubscriber(Node):
 
         is_left, amount = (value < 0, abs(value))
         duty_cycle = None
-        if servo == MinimalSubscriber.SERVO_NOD:
+        if servo == SERVO_NOD:
             duty_cycle = self._calc_servo_duty_cycle(
                     self._servo_nod_left,
                     self._servo_nod_middle,
                     self._servo_nod_right,
                     amount,
                     is_left,)
-            self._servo_global_pwm.set_pwm(self._servo_nod_pin, 0, int(duty_cycle))
+            self._servo_global_pwm.set_pwm(SERVO_NOD, 0, int(duty_cycle))
 
     def configure_nod_servo_positions(self, left=None, middle=None, right=None):
         self._servo_nod_left = left
