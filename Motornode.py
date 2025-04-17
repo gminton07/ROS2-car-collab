@@ -65,7 +65,7 @@ def motor_direction(in1, in2, direction, debug=False):
 # ROS 2 Node
 # ----------------------------
 
-class MinimalSubscriber(Node):
+class motorNode(Node):
     """
     A ROS 2 node that controls a motor based on camera input.
 
@@ -133,7 +133,7 @@ class MinimalSubscriber(Node):
 
 def main(args=None):
     rclpy.init(args=args)  # Initialize ROS 2
-    minimal_subscriber = MinimalSubscriber()  # Create node instance
+    minimal_subscriber = motorNode()  # Create node instance
 
     try:
         rclpy.spin(minimal_subscriber)  # Keep node running
