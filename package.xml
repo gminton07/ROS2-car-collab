@@ -12,6 +12,19 @@
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
 
+  <exec_depend>python-opencv</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python-opencv</exec_depend>
+	
+  <!--	board, adafruit_mpu6050, sys, termios, tty, RPi.GPIO, Adafruit_GPIO.GPIO, adafruit_mmc56x3, Adafruit_PCA9685, os -->
+  <!-- Not sure what the formatting of these is. There is a specific way to have them from (ROS Humble docs)-->
+
+
+
   <export>
     <build_type>ament_python</build_type>
   </export>
