@@ -46,8 +46,9 @@ class MinimalPublisher(Node):
         msg = String()
         adc_read = self.sensor.read_adc(0) # TODO: Verify which pin is used
         self.adc_readings[self.i] = adc_read
+        diff = self.adc_readings[self.i] - self.adc_readings[self.i - 1]
         mvg_avg = self.movingAvg(self.adc_readings, self.i, numvals=5)
-        msg.data = "{0} {1}".format(adc_read, mvg_avg)
+        msg.data = "{0} {1} {2}".format(adc_read, diff, mvg_avg)
         self.publisher_.publish(msg)
         #self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
