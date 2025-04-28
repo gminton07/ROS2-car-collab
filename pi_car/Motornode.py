@@ -135,6 +135,7 @@ def main(args=None):
     rclpy.init(args=args)  # Initialize ROS 2
     minimal_subscriber = motorNode()  # Create node instance
 
+    '''
     try:
         rclpy.spin(minimal_subscriber)  # Keep node running
     except KeyboardInterrupt:
@@ -142,6 +143,11 @@ def main(args=None):
     finally:
         minimal_subscriber.destroy_node()  # Clean up
         rclpy.shutdown()                   # Shut down ROS 2
+        '''
+
+    rclpy.spin(minimal_subscriber)
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
 
 
 # Entry point when running the script
