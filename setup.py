@@ -33,6 +33,7 @@ setup(
             'controller   = pi_car.controller:main',
             'sub_motor    = pi_car.sub_motor:main',
             'sub_servo    = pi_car.sub_servo:main',
+            'servocontrol = pi_car.ServoNode:main',
         ],
     },
 )
