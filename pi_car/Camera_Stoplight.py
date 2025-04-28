@@ -57,6 +57,7 @@ class MinimalPublisher(Node):
             result.data = True
     
         self.publisher_.publish(result)
+        self.get_logger().info(f'Stoplight {result.data}')
         self.i += 1
 
 
