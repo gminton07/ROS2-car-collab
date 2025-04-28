@@ -33,7 +33,11 @@ setup(
             'controller   = pi_car.controller:main',
             'sub_motor    = pi_car.sub_motor:main',
             'sub_servo    = pi_car.sub_servo:main',
+<<<<<<< HEAD
             'stoplight    = pi_car.Camera_Stoplight:main',
+=======
+            'servocontrol = pi_car.ServoNode:main',
+>>>>>>> d2dd2823d20b300277572182387d68262d0d72ad
         ],
     },
 )
