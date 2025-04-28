@@ -85,8 +85,8 @@ class SubscriberPublisher(Node):
         self.temp = float(self.temp)
         if (self.status == 1 or self.status == 6):
             #print('mmu5603: ', data.data)
-            #print(f'self.mx: {self.mx:.2f}\tself.my: {self.my:.2f}\tself.mz: {self.mz:.2f}\tself.temp: {self.temp:.1f}')
-            self.get_logger().info(f'self.mx: {self.mx:.2f}\tself.my: {self.my:.2f}\tself.mz: {self.mz:.2f}\tself.temp: {self.temp:.2f}')
+            #print(f'mx: {self.mx:.2f}\tmy: {self.my:.2f}\tmz: {self.mz:.2f}\ttemp: {self.temp:.1f}')
+            self.get_logger().info(f'mx: {self.mx:.2f}\tmy: {self.my:.2f}\tmz: {self.mz:.2f}\ttemp: {self.temp:.2f}')
 
     def listener_imu(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'imu %s', data.data)
@@ -99,8 +99,8 @@ class SubscriberPublisher(Node):
         self.gy = float(self.gy)
         self.gz = float(self.gz)
         if (self.status == 2 or self.status == 6):
-            #print(f'self.ax: {self.ax:.2f}\tself.my: {self.ay:.2f}\tself.az: {self.az:.2f}')
-            self.get_logger().info(f'self.ax: {self.ax:.2f}\tself.ay: {self.ay:.2f}\tself.az: {self.az:.2f}\tself.gx: {self.gx:.2f}\tself.gy: {self.gy:.2f}\t self.gz: {self.gz:.2f}')
+            #print(f'ax: {self.ax:.2f}\tmy: {self.ay:.2f}\taz: {self.az:.2f}')
+            self.get_logger().info(f'ax: {self.ax:.2f}\tay: {self.ay:.2f}\taz: {self.az:.2f}\tgx: {self.gx:.2f}\tgy: {self.gy:.2f}\t gz: {self.gz:.2f}')
 
     def listener_ultra(self, msg):
         [self.distance] = str(msg.data).split()
@@ -108,8 +108,8 @@ class SubscriberPublisher(Node):
         if self.distance < 50:
             self.publish_motor(dc=0, direction=0)
         if (self.status == 3 or self.status == 6):
-            #print(f'self.distance: {self.distance}')
-            self.get_logger().info(f'self.distance: {self.distance:.2f}')
+            #print(f'distance: {self.distance}')
+            self.get_logger().info(f'distance: {self.distance:.2f}')
 
     def listener_camera(self, msg):
         self.frame =self.bridge.imgmsg_to_cv2(msg)
@@ -122,7 +122,7 @@ class SubscriberPublisher(Node):
         self.adc_diff = int(self.adc_diff)
         self.mvg_acg = float(self.mvg_acg)
         if (self.status == 5 or self.status == 6):
-            self.get_logger().info(f'self.adc: {self.adc}\tself.adc_diff: {self.adc_diff}\tmvgAvg: {self.mvg_acg}')
+            self.get_logger().info(f'adc: {self.adc}\tadc_diff: {self.adc_diff}\tmvgAvg: {self.mvg_acg}')
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard %s' % msg.data)
