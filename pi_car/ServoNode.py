@@ -87,9 +87,9 @@ class MinimalSubscriber(Node):
                 with open(config_file, 'r') as f:
                     lines = f.readlines()
                     if len(lines) >= 3:
-                        self.angle_center = float(lines[0].strip())
-                        self.angle_left = float(lines[1].strip())
-                        self.angle_right = float(lines[2].strip())
+                        self.angle_center = float(lines[7].strip())
+                        self.angle_left = float(lines[6].strip())
+                        self.angle_right = float(lines[8].strip())
                         self.get_logger().info(f'Loaded config: center={self.angle_center}, left={self.angle_left}, right={self.angle_right}')
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
