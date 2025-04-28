@@ -1,0 +1,31 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+Publishing motor: "70 -1"
+Publishing servo: "10 10 10"
+mx: 32.27	my: -23.91	mz: 41.45	temp: 21.00
+ax: 9.85	ay: -0.16	az: 2.38	gx: 0.03	gy: 0.06	 gz: 0.00
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 409.2
+mx: 32.20	my: -24.18	mz: 40.79	temp: 21.00
+ax: 9.90	ay: -0.10	az: 2.39	gx: 0.03	gy: 0.06	 gz: 0.00
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 613.8
+adc: 1023	adc_diff: 0	mvgAvg: 818.4
+ax: 9.86	ay: -0.11	az: 2.39	gx: 0.02	gy: 0.06	 gz: 0.01
+mx: 31.93	my: -24.08	mz: 40.88	temp: 21.00
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 9.89	ay: -0.07	az: 2.33	gx: 0.03	gy: 0.05	 gz: 0.01
+Image received successfully!
+mx: 32.11	my: -24.23	mz: 41.08	temp: 21.00
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 9.88	ay: -0.09	az: 2.39	gx: 0.03	gy: 0.05	 gz: 0.00
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 9.90	ay: -0.10	az: 2.38	gx: 0.03	gy: 0.05	 gz: 0.01
+mx: 31.69	my: -24.16	mz: 40.68	temp: 21.00
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 9.92	ay: -0.10	az: 2.35	gx: 0.03	gy: 0.05	 gz: 0.00
+Image received successfully!
+mx: 32.08	my: -23.62	mz: 40.74	temp: 21.00

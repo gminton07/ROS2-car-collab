@@ -20,7 +20,7 @@ from sensor_msgs.msg import Image
 
 from cv_bridge import CvBridge  # For converting camera msg back into image
 
-import time
+import time, os
 
 class SubscriberPublisher(Node):
     
@@ -30,6 +30,7 @@ class SubscriberPublisher(Node):
     distance = None
     frame = None
     adc, adc_diff, mvg_avg = (None, None, None)
+    datafile = None
 
 
     def __init__(self):
@@ -75,6 +76,13 @@ class SubscriberPublisher(Node):
         self.status = 6
         self.bridge = CvBridge()
 
+        # Store data for future reference in a file
+        user = os.getenv('USER')
+        format_time = time.strftime('%d_%b_%Y_%H:%M:%S', time.localtime())
+        # /home/$USER/ros2_ws/src/pi_car/data/FILE.txt
+        file = '/home/' + user + '/ros2_ws/src/pi_car/data/' + format_time + '.txt'
+        self.datafile = open(file, 'w')
+
 
     def listener_mmu5603(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'mmc5603 %s', data.data)
@@ -85,8 +93,10 @@ class SubscriberPublisher(Node):
         self.temp = float(self.temp)
         if (self.status == 1 or self.status == 6):
             #print('mmu5603: ', data.data)
-            #print(f'self.mx: {self.mx:.2f}\tself.my: {self.my:.2f}\tself.mz: {self.mz:.2f}\tself.temp: {self.temp:.1f}')
-            self.get_logger().info(f'self.mx: {self.mx:.2f}\tself.my: {self.my:.2f}\tself.mz: {self.mz:.2f}\tself.temp: {self.temp:.2f}')
+            #print(f'mx: {self.mx:.2f}\tmy: {self.my:.2f}\tmz: {self.mz:.2f}\ttemp: {self.temp:.1f}')
+            self.get_logger().info(f'mx: {self.mx:.2f}\tmy: {self.my:.2f}\tmz: {self.mz:.2f}\ttemp: {self.temp:.2f}')
+            self.datafile.write(f'mx: {self.mx:.2f}\tmy: {self.my:.2f}\tmz: {self.mz:.2f}\ttemp: {self.temp:.2f}\n')
+
 
     def listener_imu(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'imu %s', data.data)
@@ -99,8 +109,9 @@ class SubscriberPublisher(Node):
         self.gy = float(self.gy)
         self.gz = float(self.gz)
         if (self.status == 2 or self.status == 6):
-            #print(f'self.ax: {self.ax:.2f}\tself.my: {self.ay:.2f}\tself.az: {self.az:.2f}')
-            self.get_logger().info(f'self.ax: {self.ax:.2f}\tself.ay: {self.ay:.2f}\tself.az: {self.az:.2f}\tself.gx: {self.gx:.2f}\tself.gy: {self.gy:.2f}\t self.gz: {self.gz:.2f}')
+            #print(f'ax: {self.ax:.2f}\tmy: {self.ay:.2f}\taz: {self.az:.2f}')
+            self.get_logger().info(f'ax: {self.ax:.2f}\tay: {self.ay:.2f}\taz: {self.az:.2f}\tgx: {self.gx:.2f}\tgy: {self.gy:.2f}\t gz: {self.gz:.2f}')
+            self.datafile.write(f'ax: {self.ax:.2f}\tay: {self.ay:.2f}\taz: {self.az:.2f}\tgx: {self.gx:.2f}\tgy: {self.gy:.2f}\t gz: {self.gz:.2f}\n')
 
     def listener_ultra(self, msg):
         [self.distance] = str(msg.data).split()
@@ -108,13 +119,15 @@ class SubscriberPublisher(Node):
         if self.distance < 50:
             self.publish_motor(dc=0, direction=0)
         if (self.status == 3 or self.status == 6):
-            #print(f'self.distance: {self.distance}')
-            self.get_logger().info(f'self.distance: {self.distance:.2f}')
+            #print(f'distance: {self.distance}')
+            self.get_logger().info(f'distance: {self.distance:.2f}')
+            self.datafile.write(f'distance: {self.distance:.2f}\n')
 
     def listener_camera(self, msg):
         self.frame =self.bridge.imgmsg_to_cv2(msg)
         if (self.status == 4 or self.status == 6):
             self.get_logger().info('Image received successfully!')
+            self.datafile.write('Image received successfully!\n')
 
     def listener_mcp3008(self, msg):
         [self.adc, self.adc_diff, self.mvg_acg] = str(msg.data).split()
@@ -122,7 +135,8 @@ class SubscriberPublisher(Node):
         self.adc_diff = int(self.adc_diff)
         self.mvg_acg = float(self.mvg_acg)
         if (self.status == 5 or self.status == 6):
-            self.get_logger().info(f'self.adc: {self.adc}\tself.adc_diff: {self.adc_diff}\tmvgAvg: {self.mvg_acg}')
+            self.get_logger().info(f'adc: {self.adc}\tadc_diff: {self.adc_diff}\tmvgAvg: {self.mvg_acg}')
+            self.datafile.write(f'adc: {self.adc}\tadc_diff: {self.adc_diff}\tmvgAvg: {self.mvg_acg}\n')
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard %s' % msg.data)
@@ -132,6 +146,7 @@ class SubscriberPublisher(Node):
             self.status = int(str(msg.data))
             if (self.status > 4):
                 self.status = 0
+            self.datafile.write('Keyboard: {self.status}\n')
 
     def publish_motor(self, dc, direction):
         # Expected Values:
@@ -143,6 +158,7 @@ class SubscriberPublisher(Node):
         msg.data = "{0} {1}".format(dutyCycle, direction)   # TODO: change msg format
         self.publisher_motor.publish(msg)
         self.get_logger().info('Publishing motor: "%s"' % msg.data)
+        self.datafile.write('Publishing motor: "%s"\n' % msg.data)
 
     def publish_servo(self, args):
         # Assumes args holds a list of PWM values for respective servos
@@ -152,6 +168,7 @@ class SubscriberPublisher(Node):
         msg.data = "{0} {1} {2}".format(nod, swivel, steer)
         self.publisher_servo.publish(msg)
         self.get_logger().info('Publishing servo: "%s"' % msg.data)
+        self.datafile.write('Publishing servo: "%s"\n' % msg.data)
 
 def main(args=None):
     rclpy.init(args=args)
