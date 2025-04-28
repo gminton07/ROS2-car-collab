@@ -93,7 +93,7 @@ class motorNode(Node):
         # Subscribe to camera topic
         self.subscription = self.create_subscription(
             Bool,               # Message type
-            'topic_camera',     # Topic name
+            'topic_red_detected',     # Topic name
             self.camera_callback,  # Callback function
             10                  # Queue size
         )

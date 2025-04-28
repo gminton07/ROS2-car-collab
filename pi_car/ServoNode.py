@@ -35,7 +35,7 @@ class MinimalSubscriber(Node):
         self.pca = PCA9685(self.i2c)
         self.pca.frequency = 60
 
-        self.servo = servo.Servo(self.pca.channels[0])
+        self.servo = servo.Servo(self.pca.channels[2])  # steering servo channel
 
         # Default (if no config file found)
         self.angle_center = 90.0
@@ -63,7 +63,7 @@ class MinimalSubscriber(Node):
         
         self.subscription_camera = self.create_subscription(
             Bool,
-            'topic_camera',
+            'topic_red_detected',
             self.listener_camera,
             10)
         
