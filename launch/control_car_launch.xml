@@ -8,6 +8,7 @@
   <node pkg="pi_car" exec="sub_motor"	  	name="motor"   namespace="samplePub"/>
   <node pkg="pi_car" exec="sub_servo"     	name="servo"   namespace="samplePub"/>
   <node pkg="pi_car" exec="stoplight"    name="stoplight"   namespace="samplePub"/>
+  <node pkg="pi_car" exec="sub_LED"	name="LED"	namespace="samplePUB"/>
   
 </launch>
 
