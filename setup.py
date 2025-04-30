@@ -36,6 +36,7 @@ setup(
             'stoplight    = pi_car.Camera_Stoplight:main',
             'servocontrol = pi_car.ServoNode:main',
             'motorcontrol = pi_car.Motornode:main',
+            'linefollow   = pi_car.line_following:main',
         ],
     },
 )

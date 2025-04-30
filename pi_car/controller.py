@@ -177,9 +177,6 @@ def main(args=None):
 
     subscriber_publisher.publish_motor(dc=50, direction=1)
     subscriber_publisher.publish_servo(args=[0, 0, 0])
-    time.sleep(5)
-    subscriber_publisher.publish_motor(dc=70, direction=-1)
-    subscriber_publisher.publish_servo(args=[10, 10, 10])
     
     #TODO: This is one method for updating motor and servo values
     # there's probably something better. If these 3 function calls (motor to spin)
