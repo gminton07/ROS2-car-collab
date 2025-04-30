@@ -1,52 +1,60 @@
 import rclpy
-from rclpy.node inport Node
+from rclpy.node import Node
 
-from std_msgs.msg Float32, Bool
+from std_msgs.msg import Float32, Bool
 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-import time, threading
+import time
+from threading import Thread
 
-class RGB_ctrl(Node, threading.Thread):
+class RGB_ctrl(Node, Thread):
     left_R, left_G, left_B = (22, 23, 24)
     right_R, right_G, right_B = (10, 9, 25)
 
     pins = None
     pwmR, pwmG, pwmB = (None, None, None)
 
-    def __init__(self):
+    def __init__(self, Node, Thread):
         super().__init__('rgb_ctrl')
+        Thread.__init__(self)
 
         # Set up LEDs
 
-        self.subscription_angle = self.create_subscription(
+        self.subscription = self.create_subscription(
                 Float32,
                 'lane_steering_angle',
                 self.listener_angle,
                 10)
-        self.subscription_intersection = self.create_subscription(
+        self.subscription = self.create_subscription(
                 Bool,
                 'intersection_detected',
                 self.listener_intersection,
                 10)
-        self.subscription_red = self.create_subscription(
+        self.subscription = self.create_subscription(
                 Bool,
                 'topic_red_detected',
                 self.listener_red,
                 10)
-        self.subscription()
-
+        self.subscription
         self.get_logger().info('Initialized LED node.')
 
-    def listener_angle():
-        pass
+    def listener_angle(self, msg):
+        angle = str(msg.data).split()
+        angle = float(angle)
 
-    def listener_intersection():
-        pass
+    def listener_intersection(self, msg):
+        intersect = str(msg.data).split()
+        intersect = bool(intersect)
 
-    def listener_red():
-        pass
+    def listener_red(self, msg):
+        red = str(msg.data).split()
+        red = bool(red)
+
+        if red:
+            self.setColor(0xff0000)
+        self.get_logger().info('brake lights')
 
     # LED Control functions
     def setupLED(self, Rpin, Gpin, Bpin):
@@ -64,6 +72,8 @@ class RGB_ctrl(Node, threading.Thread):
         self.pwmG.start(0)
         self.pwmB.start(0)
 
+        self.setColor(0x000000)
+
     def map(self, x, in_min, in_max, out_min, out_max):
         return 100 - (x-in_min) / (in_max-in_min) * (out_max-out_min) + out_min
 
@@ -80,7 +90,7 @@ class RGB_ctrl(Node, threading.Thread):
         self.pwmG.ChangeDutyCycle(G_val)
         self.pwmB.ChangeDutyCycle(B_val)
 
-     def blink(self, col, tim):
+    def blink(self, col, tim):
         start_time = time.time()
         cur_time = start_time
         delay = 0.5
@@ -115,10 +125,10 @@ class RGB_ctrl(Node, threading.Thread):
 
 def main(args=None):
     rclpy.init(args=args)
-    rgb_l = RGB_ctrl()
-    rgb_l.setupLED(left_R, left_G, left_B)
-    rgb_r = RGB_ctrl()
-    rgb_r.setupLED(right_R, right_G, right_B)
+    rgb_l = RGB_ctrl(Node, Thread)
+    rgb_l.setupLED(RGB_ctrl.left_R, RGB_ctrl.left_G, RGB_ctrl.left_B)
+    rgb_r = RGB_ctrl(Node, Thread)
+    rgb_r.setupLED(RGB_ctrl.right_R, RGB_ctrl.right_G, RGB_ctrl.right_B)
 
     rgb_l.start()
     rgb_r.blink(0xffff00, 5)
@@ -129,7 +139,7 @@ def main(args=None):
     rgb_l.destroy()
     rgb_r.destroy()
     rgb_l.destroy_node()
-    rgb_r.destroy_node
+    rgb_r.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
