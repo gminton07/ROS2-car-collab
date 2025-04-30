@@ -67,8 +67,6 @@ class RGB_ctrl(Node, Thread):
         self.Lpins = {'pin_R':L_Rpin, 'pin_G':L_Gpin, 'pin_B':L_Bpin}
         self.Rpins = {'pin_R':R_Rpin, 'pin_G':R_Gpin, 'pin_B':R_Bpin}
 
-
-
         for i in self.Lpins:
             GPIO.setup(self.Lpins[i], GPIO.OUT)
             GPIO.output(self.Lpins[i], GPIO.HIGH)    # HIGH == off
