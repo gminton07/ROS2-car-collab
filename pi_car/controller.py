@@ -15,7 +15,7 @@
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 from sensor_msgs.msg import Image
 
 from cv_bridge import CvBridge  # For converting camera msg back into image
@@ -69,6 +69,7 @@ class SubscriberPublisher(Node):
         self.get_logger().info('I initialized the subscriber')
         self.publisher_motor = self.create_publisher(String, 'topic_motor', 10)
         self.publisher_servo = self.create_publisher(String, 'topic_servo', 10)
+        self.publisher_ult_obstacle = self.create_publisher(Bool, 'topic_obstacle', 10)
         # status is a global that I'll use to print
         # 1-5603    2-imu   3-ultra 4-camera    5-3008  6-all
         # While I'm not a fan of globals, in this case, you can use 
@@ -118,6 +119,7 @@ class SubscriberPublisher(Node):
         self.distance = float(self.distance)
         if self.distance < 50:
             self.publish_motor(dc=0, direction=0)
+            self.publish_ult_obstacle(True)
         if (self.status == 3 or self.status == 6):
             #print(f'distance: {self.distance}')
             self.get_logger().info(f'distance: {self.distance:.2f}')
@@ -169,6 +171,14 @@ class SubscriberPublisher(Node):
         self.publisher_servo.publish(msg)
         self.get_logger().info('Publishing servo: "%s"' % msg.data)
         self.datafile.write('Publishing servo: "%s"\n' % msg.data)
+
+    def publish_ult_obstacle(self, args):
+        msg = Bool()
+        obstacle = args
+        msg.data = obstacle
+        self.publisher_ult_obstacle.publish(msg)
+        self.get_logger().info('Publishing obstacle: "%s"' % msg.data)
+
 
 def main(args=None):
     rclpy.init(args=args)

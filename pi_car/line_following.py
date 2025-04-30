@@ -137,7 +137,7 @@ class LaneDetectionNode(Node):
             stop_line_vertices = np.array([
                 [stop_line_top, (stop_line_top[0], stop_line_bottom),
                  (bottom_right[0], stop_line_bottom), (bottom_right[0], stop_line_top)]
-            )
+                ])
             cv2.polylines(debug_img, [stop_line_vertices], True, (255, 0, 0), 2)
             
             # Add text overlay
@@ -196,6 +196,7 @@ class LaneDetectionNode(Node):
         return detected
 
     def calculate_steering_angle(self, lines, image_width, image_height):
+        pass
         # ... (keep the same implementation as before) ...
 
 def main(args=None):

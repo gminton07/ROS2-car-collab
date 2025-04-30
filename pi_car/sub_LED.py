@@ -16,6 +16,7 @@ class RGB_ctrl(Node, Thread):
     Lpins, Rpins = (None, None)
     L_pwmR, L_pwmG, L_pwmB = (None, None, None)
     R_pwmR, R_pwmG, R_pwmB = (None, None, None)
+    intersect, red, obst = (None, None, None)
 
 
     def __init__(self, Node, Thread):
@@ -41,26 +42,41 @@ class RGB_ctrl(Node, Thread):
                 'topic_red_detected',
                 self.listener_red,
                 10)
+        self.subscription = self.create_subscription(
+                Bool,
+                'topic_obstacle',
+                self.listener_obstacle,
+                10)
         self.subscription
         self.get_logger().info('Initialized LED node.')
 
     def listener_angle(self, msg):
-        angle = str(msg.data).split()
-        angle = float(angle)
+        self.angle = str(msg.data).split()
+        self.angle = float(angle)
 
     def listener_intersection(self, msg):
         intersect = str(msg.data).split()
-        intersect = bool(intersect)
-
-        if intersect:   self.start()
+        self.intersect = bool(intersect)
+        '''
+        if self.intersect:   self.start(0xffff00)
+        '''
 
     def listener_red(self, msg):
         red = str(msg.data).split()
-        red = bool(red)
-
+        self.red = bool(red)
+        '''
         if red:
             self.setColor(0xff0000, 'B')
         self.get_logger().info('brake lights')
+        '''
+
+    def listener_obstacle(self, msg):
+        obst = str(msg.data).split()
+        obst = bool(obst)
+        '''
+        if obst:
+            self.start(0xff0000)
+        '''
 
     # LED Control functions
     def setupLED(self, L_Rpin, L_Gpin, L_Bpin, R_Rpin, R_Gpin, R_Bpin):
@@ -108,16 +124,26 @@ class RGB_ctrl(Node, Thread):
         G_val = self.map(G_val, 0, 255, 0, 100)
         B_val = self.map(B_val, 0, 255, 0, 100)
         
-        if side == 'L' or 'B':
+        if ('B' == side):
+            print('both sides LED')
             self.L_pwmR.ChangeDutyCycle(R_val)
             self.L_pwmG.ChangeDutyCycle(G_val)
             self.L_pwmB.ChangeDutyCycle(B_val)
-        elif side == 'R' or 'B':
+            self.R_pwmR.ChangeDutyCycle(R_val)
+            self.R_pwmG.ChangeDutyCycle(G_val)
+            self.R_pwmB.ChangeDutyCycle(B_val)
+        elif ('L' == side):
+            print('left side LED')
+            self.L_pwmR.ChangeDutyCycle(R_val)
+            self.L_pwmG.ChangeDutyCycle(G_val)
+            self.L_pwmB.ChangeDutyCycle(B_val)
+        elif ('R' == side):
+            print('right side LED')
             self.R_pwmR.ChangeDutyCycle(R_val)
             self.R_pwmG.ChangeDutyCycle(G_val)
             self.R_pwmB.ChangeDutyCycle(B_val)
     
-    def blink(self, col, tim):
+    def blink(self, col, tim, side):
         start_time = time.time()
         cur_time = start_time
         delay = 0.5
@@ -128,24 +154,39 @@ class RGB_ctrl(Node, Thread):
 
             if (start_time + i * delay < cur_time):
                 if i%2 == 0:
-                    self.setColor(0x000000, 'B')    #TODO: Change with directions later
+                    self.setColor(0x000000, side)
                 else:
-                    self.setColor(col, 'B')
+                    self.setColor(col, side)
                 
                 i += 1
 
     def off(self):
         for i in self.pins:
-            GPIO.output(self.pins[i], GPIO.LOW)    # Tied high is off
+            GPIO.output(self.pins[i], GPIO.HIGH)    # Tied high is off
 
     def destroy(self):
+        self.setColor(0x000000, 'B')
         self.pwmR.stop()
         self.pwmG.stop()
         self.pwmB.stop()
-        self.off()
+        #self.off()
 
     def run(self):
-        self.blink(0xffff00, 5)
+        while True:
+            if self.obst:
+                self.blink(0xff0000, 5, 'B')
+                print('intersect blink yellow')
+            elif self.red:
+                pass
+                self.setColor(0xff0000, 'B')
+                print('red solid red')
+            elif self.intersect:
+                pass
+                self.blink(0xffff00, 5, 'B')
+                print('obstacle blink red')
+            else:
+                pass
+        #self.blink(col, 5, 'B')
 
 
 def main(args=None):
@@ -154,6 +195,8 @@ def main(args=None):
 
     #rgb_ctrl.off()
 
+    rgb_ctrl.start()
+    #print('Blinking')
     rclpy.spin(rgb_ctrl)
 
     rgb_ctrl.destroy()
