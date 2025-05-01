@@ -120,6 +120,8 @@ class SubscriberPublisher(Node):
         if self.distance < 50:
             self.publish_motor(dc=0, direction=0)
             self.publish_ult_obstacle(True)
+        else:
+            self.publish_ult_obstacle(False)
         if (self.status == 3 or self.status == 6):
             #print(f'distance: {self.distance}')
             self.get_logger().info(f'distance: {self.distance:.2f}')
@@ -174,8 +176,7 @@ class SubscriberPublisher(Node):
 
     def publish_ult_obstacle(self, args):
         msg = Bool()
-        obstacle = args
-        msg.data = obstacle
+        msg.data = args
         self.publisher_ult_obstacle.publish(msg)
         self.get_logger().info('Publishing obstacle: "%s"' % msg.data)
 

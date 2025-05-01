@@ -23,6 +23,9 @@ class RGB_ctrl(Node, Thread):
         super().__init__('rgb_ctrl')
         Thread.__init__(self)
 
+        timer_period = 5
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+
         # Set up LEDs
         self.setupLED(self.left_R, self.left_G, self.left_B,
                 self.right_R, self.right_G, self.right_B)
@@ -53,30 +56,21 @@ class RGB_ctrl(Node, Thread):
     def listener_angle(self, msg):
         self.angle = str(msg.data).split()
         self.angle = float(angle)
+        #print(f'Angle: {self.angle}')
 
     def listener_intersection(self, msg):
-        intersect = str(msg.data).split()
-        self.intersect = bool(intersect)
-        '''
-        if self.intersect:   self.start(0xffff00)
-        '''
+        self.intersect = str(msg.data).split()
+        self.intersect = bool(self.intersect)
+        #print(f'Intersect: {self.intersect}')
 
     def listener_red(self, msg):
-        red = str(msg.data).split()
-        self.red = bool(red)
-        '''
-        if red:
-            self.setColor(0xff0000, 'B')
-        self.get_logger().info('brake lights')
-        '''
+        self.red = str(msg.data).split()
+        self.red = bool(self.red)
+        #print(f'Red: {self.red}')
 
     def listener_obstacle(self, msg):
-        obst = str(msg.data).split()
-        obst = bool(obst)
-        '''
-        if obst:
-            self.start(0xff0000)
-        '''
+        self.obst = msg.data
+        #print(f'Obstacle: {self.obst}')
 
     # LED Control functions
     def setupLED(self, L_Rpin, L_Gpin, L_Bpin, R_Rpin, R_Gpin, R_Bpin):
@@ -125,7 +119,7 @@ class RGB_ctrl(Node, Thread):
         B_val = self.map(B_val, 0, 255, 0, 100)
         
         if ('B' == side):
-            print('both sides LED')
+            #print('both sides LED')
             self.L_pwmR.ChangeDutyCycle(R_val)
             self.L_pwmG.ChangeDutyCycle(G_val)
             self.L_pwmB.ChangeDutyCycle(B_val)
@@ -133,17 +127,17 @@ class RGB_ctrl(Node, Thread):
             self.R_pwmG.ChangeDutyCycle(G_val)
             self.R_pwmB.ChangeDutyCycle(B_val)
         elif ('L' == side):
-            print('left side LED')
+            #print('left side LED')
             self.L_pwmR.ChangeDutyCycle(R_val)
             self.L_pwmG.ChangeDutyCycle(G_val)
             self.L_pwmB.ChangeDutyCycle(B_val)
         elif ('R' == side):
-            print('right side LED')
+            #print('right side LED')
             self.R_pwmR.ChangeDutyCycle(R_val)
             self.R_pwmG.ChangeDutyCycle(G_val)
             self.R_pwmB.ChangeDutyCycle(B_val)
     
-    def blink(self, col, tim, side):
+    def blink(self, col, side, tim=5):
         start_time = time.time()
         cur_time = start_time
         delay = 0.5
@@ -158,6 +152,7 @@ class RGB_ctrl(Node, Thread):
                 else:
                     self.setColor(col, side)
                 
+                B
                 i += 1
 
     def off(self):
@@ -171,32 +166,44 @@ class RGB_ctrl(Node, Thread):
         self.pwmB.stop()
         #self.off()
 
-    def run(self):
-        while True:
-            if self.obst:
-                self.blink(0xff0000, 5, 'B')
-                print('intersect blink yellow')
-            elif self.red:
-                pass
-                self.setColor(0xff0000, 'B')
-                print('red solid red')
-            elif self.intersect:
-                pass
-                self.blink(0xffff00, 5, 'B')
-                print('obstacle blink red')
-            else:
-                pass
-        #self.blink(col, 5, 'B')
+    def timer_callback(self):
+        '''
+        self.obst, self.red, self.intersect, turn_L, turn_R = (False, False, False, False, False)
+        select = int(input('Give test selection: '))
+        if 0 == select:
+            self.obst = True
+        elif 1 == select:
+            self.red = True
+        elif 2 == select:
+            self.intersect = True
+        elif 3 == select:
+            turn_L = True
+        elif 4 == select:
+            turn_R = True
+        '''
+        turn_L, turn_R = (False, False)
+
+        if self.obst:
+            self.blink(0xff0000, 'B')
+            print('obstacle')
+        elif False == self.red:
+            self.setColor(0xff0000, 'B')
+            print('red')
+        elif self.intersect:
+            self.blink(0xffff00, 'B')
+            print('intersect')
+        elif turn_L:
+            self.blink(0xffff00, 'L')
+        elif turn_R:
+            self.blink(0xffff00, 'R')
+        else:
+            self.setColor(0x070707, 'B')
 
 
 def main(args=None):
     rclpy.init(args=args)
     rgb_ctrl = RGB_ctrl(Node, Thread)
 
-    #rgb_ctrl.off()
-
-    rgb_ctrl.start()
-    #print('Blinking')
     rclpy.spin(rgb_ctrl)
 
     rgb_ctrl.destroy()
