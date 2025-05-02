@@ -118,7 +118,7 @@ class SubscriberPublisher(Node):
         [self.distance] = str(msg.data).split()
         self.distance = float(self.distance)
         if self.distance < 50:
-            self.publish_motor(dc=0, direction=0)
+            self.publish_motor(dutyCycle=0, direction=0)
             self.publish_ult_obstacle(True)
         else:
             self.publish_ult_obstacle(False)
@@ -160,12 +160,11 @@ class SubscriberPublisher(Node):
         except ValueError:
             pass
 
-    def publish_motor(self, dc, direction):
+    def publish_motor(self, dutyCycle, direction):
         # Expected Values:
         # direction: -1 backward, 0 stop, 1 forward
         # Duty cycle: percentage
         msg = String()
-        dutyCycle = dc
         direction = direction
         msg.data = "{0} {1}".format(dutyCycle, direction)   # TODO: change msg format
         self.publisher_motor.publish(msg)
@@ -194,7 +193,7 @@ def main(args=None):
 
     subscriber_publisher = SubscriberPublisher()
 
-    subscriber_publisher.publish_motor(dc=50, direction=1)
+    subscriber_publisher.publish_motor(dutyCycle=80, direction=1)
     subscriber_publisher.publish_servo(args=[0, 0, 0])
    
     #TODO: This is one method for updating motor and servo values
