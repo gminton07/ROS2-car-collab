@@ -145,12 +145,20 @@ class SubscriberPublisher(Node):
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard %s' % msg.data)
         #print("keyboard: " + str(data.data))
-
+        '''
         if (isinstance(int(str(msg.data)), int)):
             self.status = int(str(msg.data))
             if (self.status > 4):
                 self.status = 0
             self.datafile.write('Keyboard: {self.status}\n')
+        '''
+
+        try:
+            self.status = int(str(msg.data))
+            if (self.status > 4):
+                self.status = 0
+        except ValueError:
+            pass
 
     def publish_motor(self, dc, direction):
         # Expected Values:

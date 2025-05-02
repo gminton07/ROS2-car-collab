@@ -135,9 +135,13 @@ class LaneDetectionNode(Node):
             stop_line_top = (bottom_left[0], int(bottom_left[1] - height * self.roi_height * self.stop_line_roi_height))
             stop_line_bottom = bottom_left[1]
             stop_line_vertices = np.array([
-                [stop_line_top, (stop_line_top[0], stop_line_bottom),
-                 (bottom_right[0], stop_line_bottom), (bottom_right[0], stop_line_top)]
-                ])
+                [stop_line_top[0], stop_line_top[1]],          # Top-left
+                [stop_line_top[0], stop_line_bottom],          # Bottom-left
+                [bottom_right[0], stop_line_bottom],           # Bottom-right
+                [bottom_right[0], stop_line_top[1]]            # Top-right
+            ], dtype=np.int32)
+
+            stop_line_vertices = stop_line_vertices.reshape((-1, 1, 2))
             cv2.polylines(debug_img, [stop_line_vertices], True, (255, 0, 0), 2)
             
             # Add text overlay
@@ -196,8 +200,44 @@ class LaneDetectionNode(Node):
         return detected
 
     def calculate_steering_angle(self, lines, image_width, image_height):
-        pass
-        # ... (keep the same implementation as before) ...
+        if lines is None:
+            return 0.0  # Return straight angle if no lines detected
+        
+        left_lines = []
+        right_lines = []
+        
+        for line in lines:
+            x1, y1, x2, y2 = line[0]
+            parameters = np.polyfit((x1, x2), (y1, y2), 1)
+            slope = parameters[0]
+            
+            if slope < 0:  # Left lane
+                left_lines.append(parameters)
+            else:  # Right lane
+                right_lines.append(parameters)
+        
+        # Calculate average slopes and intercepts
+        left_avg = np.average(left_lines, axis=0) if left_lines else None
+        right_avg = np.average(right_lines, axis=0) if right_lines else None
+        
+        # Calculate steering angle based on detected lines
+        if left_avg is not None and right_avg is not None:
+            # Both lanes detected
+            left_x = (image_height - left_avg[1]) / left_avg[0]
+            right_x = (image_height - right_avg[1]) / right_avg[0]
+            midpoint = (left_x + right_x) / 2
+            steering_angle = np.arctan2((image_width/2 - midpoint), image_height) * 180 / np.pi
+        elif left_avg is not None:
+            # Only left lane detected
+            steering_angle = 20.0  # Turn right
+        elif right_avg is not None:
+            # Only right lane detected
+            steering_angle = -20.0  # Turn left
+        else:
+            # No lanes detected
+            steering_angle = 0.0
+        
+        return steering_angle
 
 def main(args=None):
     rclpy.init(args=args)
