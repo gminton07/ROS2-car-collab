@@ -1,0 +1,66 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+adc: 1023	adc_diff: 0	mvgAvg: 613.8
+ax: 9.33	ay: 0.19	az: -0.30	gx: -0.01	gy: -0.00	 gz: -0.00
+mx: -129.67	my: 194.26	mz: -337.26	temp: 25.80
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.56
+adc: 1023	adc_diff: 0	mvgAvg: 818.4
+ax: 10.17	ay: -0.06	az: 0.91	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.98
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+mx: -131.28	my: 190.15	mz: -342.38	temp: 25.80
+ax: 10.20	ay: -0.12	az: 0.92	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.99
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 10.23	ay: -0.06	az: 0.95	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+mx: -131.40	my: 190.12	mz: -342.35	temp: 25.80
+Publishing motor: "0 0"
+distance: 28.55
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 10.22	ay: -0.07	az: 0.85	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.57
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+mx: -131.35	my: 189.98	mz: -342.35	temp: 25.80
+ax: 10.20	ay: -0.05	az: 0.88	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.15
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 10.19	ay: -0.12	az: 0.94	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+mx: -131.47	my: 190.23	mz: -342.34	temp: 25.80
+Publishing motor: "0 0"
+distance: 28.14
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 10.20	ay: -0.11	az: 0.99	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.56
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+mx: -131.41	my: 190.56	mz: -342.41	temp: 25.80
+ax: 10.17	ay: -0.08	az: 0.98	gx: -0.03	gy: 0.00	 gz: -0.01
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.14
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 10.20	ay: -0.06	az: 0.92	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+mx: -131.38	my: 190.38	mz: -341.94	temp: 25.80
+Publishing motor: "0 0"
+distance: 28.98
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+ax: 10.21	ay: -0.04	az: 0.90	gx: -0.04	gy: 0.00	 gz: -0.01
+Image received successfully!
+Publishing motor: "0 0"
+distance: 28.14
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+mx: -131.53	my: 190.53	mz: -342.16	temp: 25.80

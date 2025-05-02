@@ -4,14 +4,18 @@ from rclpy.node import Node
 from std_msgs.msg import Float32, Bool
 
 import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
+#GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 import time
 from threading import Thread
 
 class RGB_ctrl(Node, Thread):
-    left_R, left_G, left_B = (22, 23, 24)
-    right_R, right_G, right_B = (10, 9, 25)
+    #left_R, left_G, left_B = (22, 23, 24)
+    #right_R, right_G, right_B = (10, 9, 25)
+    # GPIO.BOARD values
+    left_R, left_G, left_B = (15, 16, 18)
+    right_R, right_G, right_B = (19, 21, 22)
 
     Lpins, Rpins = (None, None)
     L_pwmR, L_pwmG, L_pwmB = (None, None, None)

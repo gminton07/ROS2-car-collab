@@ -1,0 +1,9 @@
+Publishing motor: "80 1"
+Publishing servo: "0 0 0"
+adc: 769	adc_diff: -254	mvgAvg: 563.0
+ax: 12.55	ay: -1.87	az: -0.62	gx: -0.22	gy: 0.16	 gz: -0.05
+distance: 78.19
+mx: -116.82	my: 222.30	mz: -278.51	temp: 32.20
+Image received successfully!
+adc: 63	adc_diff: -706	mvgAvg: 575.6
+ax: 10.01	ay: -1.05	az: 0.34	gx: -0.03	gy: 0.00	 gz: -0.00
