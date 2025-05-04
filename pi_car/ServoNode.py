@@ -1,16 +1,4 @@
-# Copyright 2016 Open Source Robotics Foundation, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+
 
 
 import rclpy
@@ -35,7 +23,7 @@ class MinimalSubscriber(Node):
         self.pca = PCA9685(self.i2c)
         self.pca.frequency = 60
 
-        self.servo = servo.Servo(self.pca.channels[0])
+        self.servo = servo.Servo(self.pca.channels[2])  # steering servo channel
 
         # Default (if no config file found)
         self.angle_center = 90.0
@@ -47,6 +35,9 @@ class MinimalSubscriber(Node):
         # Initialize servo position to center
         self.current_angle = self.angle_center
         self.servo.angle = self.current_angle
+
+        # Publisher to topic_servo
+        self.servo_command_publisher = self.create_publisher(String, 'topic_servo', 10)
 
         # Subscriptions
         self.subscription_angle = self.create_subscription(
@@ -63,7 +54,7 @@ class MinimalSubscriber(Node):
         
         self.subscription_camera = self.create_subscription(
             Bool,
-            'topic_camera',
+            'topic_red_detected',
             self.listener_camera,
             10)
         
@@ -78,18 +69,16 @@ class MinimalSubscriber(Node):
         self.turning = False  # For managing intersection turns
 
     def load_servo_config(self):
-        """Load servo angle settings from config file if available."""
         config_file = 'PICAR_CONFIG.txt'
-
         if os.path.exists(config_file):
             self.get_logger().info('Servo config file found. Loading values...')
             try:
                 with open(config_file, 'r') as f:
                     lines = f.readlines()
-                    if len(lines) >= 3:
-                        self.angle_center = float(lines[0].strip())
-                        self.angle_left = float(lines[1].strip())
-                        self.angle_right = float(lines[2].strip())
+                    if len(lines) >= 9:
+                        self.angle_center = float(lines[7].strip())
+                        self.angle_left = float(lines[6].strip())
+                        self.angle_right = float(lines[8].strip())
                         self.get_logger().info(f'Loaded config: center={self.angle_center}, left={self.angle_left}, right={self.angle_right}')
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
@@ -99,18 +88,21 @@ class MinimalSubscriber(Node):
             self.get_logger().info('No servo config found. Using defaults.')
 
     def map_steering_angle(self, normalized_angle):
-        """Map a 0-180 normalized line angle into real calibrated angles."""
-        # Assuming normalized_angle 90 should correspond to angle_center
         if normalized_angle < 90.0:
-            # Left side
             mapped_angle = self.angle_center - (90.0 - normalized_angle) / 90.0 * (self.angle_center - self.angle_left)
         else:
-            # Right side
             mapped_angle = self.angle_center + (normalized_angle - 90.0) / 90.0 * (self.angle_right - self.angle_center)
-        
-        # Clamp to avoid bad values
         mapped_angle = max(self.angle_left, min(self.angle_right, mapped_angle))
         return mapped_angle
+
+    def publish_servo_command(self):
+        nod = 0.0
+        swivel = 0.0
+        steer = self.current_angle
+        msg = String()
+        msg.data = f"{nod} {swivel} {steer}"
+        self.servo_command_publisher.publish(msg)
+        self.get_logger().info(f"Published to topic_servo: {msg.data}")
 
     def listener_angle(self, msg):
         if not self.turning:
@@ -122,19 +114,23 @@ class MinimalSubscriber(Node):
 
             self.servo.angle = mapped_angle
             self.current_angle = mapped_angle
+            self.publish_servo_command()
 
     def listener_intersection(self, msg):
         if msg.data and not self.turning:
             self.get_logger().info("Intersection detected. Performing turn.")
             self.turning = True
 
-            # Temporary turn (example: slight left or right)
             turn_angle = self.current_angle + 20 if self.current_angle < (self.angle_right - 20) else self.current_angle - 20
             self.servo.angle = turn_angle
+            self.current_angle = turn_angle
+            self.publish_servo_command()
+
             time.sleep(7)
 
-            # Return to center
-            self.servo.angle = self.current_angle
+            self.servo.angle = self.angle_center
+            self.current_angle = self.angle_center
+            self.publish_servo_command()
             time.sleep(0.2)
 
             self.turning = False
@@ -144,44 +140,44 @@ class MinimalSubscriber(Node):
             self.get_logger().info("Camera triggered evasive turn.")
             self.turning = True
 
-            # Example small evasive turn
             turn_angle = self.current_angle + 20 if self.current_angle < (self.angle_right - 20) else self.current_angle - 20
             self.servo.angle = turn_angle
+            self.current_angle = turn_angle
+            self.publish_servo_command()
+
             time.sleep(7)
 
-            self.servo.angle = self.current_angle
+            self.servo.angle = self.angle_center
+            self.current_angle = self.angle_center
+            self.publish_servo_command()
             time.sleep(0.2)
 
             self.turning = False
 
-            
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard input: %s' % msg.data)
-    
-    # Define a small increment for slight steering
-        slight_turn_amount = 5  # Adjust this value for how slight you want the turn to be
+        slight_turn_amount = 5
 
-    # Check the keyboard input and steer accordingly
-        if msg.data == 's':  # 's' for slight left turn
-        # Slightly decrease the angle to turn left
+        if msg.data == 's':
             self.servo.angle = max(self.angle_left, self.current_angle - slight_turn_amount)
+            self.current_angle = self.servo.angle
             self.get_logger().info(f"Slightly steering left: {self.servo.angle}")
-        
-        elif msg.data == 'd':  # 'd' for slight right turn
-        # Slightly increase the angle to turn right
+        elif msg.data == 'd':
             self.servo.angle = min(self.angle_right, self.current_angle + slight_turn_amount)
+            self.current_angle = self.servo.angle
             self.get_logger().info(f"Slightly steering right: {self.servo.angle}")
-        
-        elif msg.data == 'e':  # 'e' for straight (center)
+        elif msg.data == 'e':
             self.servo.angle = self.angle_center
+            self.current_angle = self.angle_center
             self.get_logger().info(f"Centering: {self.angle_center}")
+        
+        self.publish_servo_command()
 
 
 def main(args=None):
     rclpy.init(args=args)
     minimal_subscriber = MinimalSubscriber()
     rclpy.spin(minimal_subscriber)
-
     minimal_subscriber.destroy_node()
     rclpy.shutdown()
 
