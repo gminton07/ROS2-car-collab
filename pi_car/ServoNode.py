@@ -2,12 +2,12 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32, Bool, String
 
-import board
-from adafruit_pca9685 import PCA9685
-from adafruit_motor import servo 
+#import board
+#from adafruit_pca9685 import PCA9685
+#from adafruit_motor import servo 
 
 import time
-import adafruit_mmc56x3
+#import adafruit_mmc56x3
 import os
 
 class MinimalSubscriber(Node):
@@ -117,7 +117,7 @@ class MinimalSubscriber(Node):
 
             time.sleep(7)
 
-            self.servo.angle = self.angle_center/home/gabe/.local/lib/python3.10/site-packages/adafruit_motor/servo.py
+            self.servo.angle = self.angle_center
             self.current_angle = self.angle_center
             self.publish_servo_command()
             time.sleep(0.2)
