@@ -39,6 +39,7 @@ class MinimalSubscriber(Node):
                 configuration = config.readlines()
                 if len(configuration) < 9:
                     print('invalid configuration')
+                    self.get_logger().error('Invalid servo configuration')
                 else:
                     self.configure_nod_servo_positions(
                             int(configuration[1]),
@@ -50,7 +51,7 @@ class MinimalSubscriber(Node):
                             int(configuration[3]),
                             int(configuration[5]),
                             )
-                self.configure_steer_servo_positions(
+                    self.configure_steer_servo_positions(
                             int(configuration[7]),
                             int(configuration[6]),
                             int(configuration[8]),
@@ -95,8 +96,6 @@ class MinimalSubscriber(Node):
                             is_left,)
                     self._servo_global_pwm.set_pwm(self.SERVO_STEER, 0, int(duty_cycle))
 
-
-
     def configure_nod_servo_positions(self, left=None, middle=None, right=None):
         self._servo_nod_left = left
         self._servo_nod_middle = middle
@@ -112,9 +111,6 @@ class MinimalSubscriber(Node):
         self._servo_steer_middle = middle
         self._servo_steer_right = right
         
-      
-
-
     def listener_servo(self, msg):
         [nod, swivel, steer] = str(msg.data).split()
         nod = float(nod)
@@ -127,8 +123,6 @@ class MinimalSubscriber(Node):
         self._set_servo(0, nod)
         self._set_servo(1, swivel)
         self._set_servo(2, steer)
-
-
 
 
 def main(args=None):

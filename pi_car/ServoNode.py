@@ -1,6 +1,3 @@
-
-
-
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32, Bool, String
@@ -26,9 +23,9 @@ class MinimalSubscriber(Node):
         self.servo = servo.Servo(self.pca.channels[2])  # steering servo channel
 
         # Default (if no config file found)
-        self.angle_center = 90.0
-        self.angle_left = 60.0
-        self.angle_right = 120.0
+        self.angle_center = 0.0
+        self.angle_left = -10.0
+        self.angle_right = 10.0
 
         self.load_servo_config()
 
@@ -128,7 +125,7 @@ class MinimalSubscriber(Node):
 
             time.sleep(7)
 
-            self.servo.angle = self.angle_center
+            self.servo.angle = self.angle_center/home/gabe/.local/lib/python3.10/site-packages/adafruit_motor/servo.py
             self.current_angle = self.angle_center
             self.publish_servo_command()
             time.sleep(0.2)

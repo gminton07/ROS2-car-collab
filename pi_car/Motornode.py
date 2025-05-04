@@ -15,9 +15,8 @@ class motorNode(Node):
         super().__init__('motor_command_publisher')
 
         self.duty = 70.0   # Speed (duty cycle)
-        self.nod = 0.0     # Placeholder for nod (not used)
-        self.go_dir = 1.0  # Forward
-        self.stop_dir = 0.0
+        self.go_dir = 1  # Forward
+        self.stop_dir = 0
 
         # Publisher to the motor controller
         self.motor_pub = self.create_publisher(String, 'topic_motor', 10)
@@ -25,24 +24,24 @@ class motorNode(Node):
         # Subscriber to the camera signal
         self.subscription = self.create_subscription(
             Bool,
-            'topic_camera',
-            self.camera_callback,
+            'topic_red_detected',
+            self.red_callback,
             10
         )
 
         self.get_logger().info("Camera listener started — will publish to topic_motor")
 
-    def camera_callback(self, msg):
+    def red_callback(self, msg):
         """
-        If camera sees obstacle (True): stop.
+        If camera sees red light (True): stop.
         If clear (False): go forward.
         """
         if msg.data:
             self.get_logger().info("Obstacle detected — publishing STOP")
-            command = f"{self.nod} 0.0 {self.stop_dir}"  # Duty 0%, direction 0
+            command = f"{0} {self.stop_dir}"  # Duty 0%, direction 0
         else:
             self.get_logger().info("Path clear — publishing GO")
-            command = f"{self.nod} {self.duty} {self.go_dir}"  # Duty 70%, direction 1
+            command = f"{self.duty} {self.go_dir}"  # Duty 70%, direction 1
 
         motor_msg = String()
         motor_msg.data = command
@@ -65,8 +64,8 @@ def main(args=None):
         rclpy.shutdown()                   # Shut down ROS 2
     '''
 
-    rclpy.spin(minimal_subscriber)
-    minimal_subscriber.destroy_node()
+    rclpy.spin(node)
+    node.destroy_node()
     rclpy.shutdown()
 
 

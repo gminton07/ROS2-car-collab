@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 
 import rclpy
@@ -229,10 +230,10 @@ class LaneDetectionNode(Node):
             steering_angle = np.arctan2((image_width/2 - midpoint), image_height) * 180 / np.pi
         elif left_avg is not None:
             # Only left lane detected
-            steering_angle = 20.0  # Turn right
+            steering_angle = 10.0  # Turn right
         elif right_avg is not None:
             # Only right lane detected
-            steering_angle = -20.0  # Turn left
+            steering_angle = -10.0  # Turn left
         else:
             # No lanes detected
             steering_angle = 0.0
