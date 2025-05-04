@@ -14,20 +14,12 @@ class MinimalSubscriber(Node):
     def __init__(self):
         super().__init__('minimal_subscriber')
 
-        # Set up I2C and sensor
-        self.i2c = board.I2C()
-        self.sensor = adafruit_mmc56x3.MMC5603(self.i2c)
-        self.pca = PCA9685(self.i2c)
-        self.pca.frequency = 60
-
-        self.servo = servo.Servo(self.pca.channels[2])  # steering servo channel
-
         # Default (if no config file found)
         self.angle_center = 0.0
         self.angle_left = -10.0
         self.angle_right = 10.0
 
-        self.load_servo_config()
+        #self.load_servo_config()
 
         # Initialize servo position to center
         self.current_angle = self.angle_center
