@@ -1,0 +1,4 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+distance: 277.05
+adc: 855	adc_diff: -3	mvgAvg: 342.6

@@ -53,6 +53,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = motorNode()
 
+    '''
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
@@ -60,6 +61,13 @@ def main(args=None):
     finally:
         node.destroy_node()
         rclpy.shutdown()
+        minimal_subscriber.destroy_node()  # Clean up
+        rclpy.shutdown()                   # Shut down ROS 2
+    '''
+
+    rclpy.spin(minimal_subscriber)
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,190 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+distance: 78.91
+distance: 78.06
+distance: 78.04
+distance: 78.90
+distance: 78.89
+distance: 78.91
+distance: 78.89
+distance: 78.06
+distance: 78.04
+distance: 78.47
+distance: 78.90
+distance: 78.91
+distance: 78.92
+distance: 78.51
+distance: 78.93
+distance: 78.47
+distance: 77.63
+distance: 78.90
+distance: 77.65
+distance: 78.06
+distance: 78.88
+distance: 79.63
+distance: 62.56
+distance: 63.73
+distance: 78.77
+Publishing motor: "0 0"
+distance: 22.12
+Publishing motor: "0 0"
+distance: 5.25
+Publishing motor: "0 0"
+distance: 5.66
+distance: 77.94
+distance: 78.38
+distance: 79.19
+distance: 77.95
+distance: 79.25
+distance: 78.43
+distance: 77.57
+distance: 77.60
+distance: 77.99
+distance: 78.46
+distance: 78.86
+distance: 78.47
+distance: 77.64
+distance: 78.01
+distance: 78.49
+distance: 78.45
+distance: 79.31
+distance: 78.90
+distance: 78.87
+distance: 78.46
+distance: 78.89
+distance: 78.86
+distance: 79.31
+distance: 78.88
+distance: 78.89
+distance: 78.05
+distance: 78.06
+distance: 78.50
+distance: 78.51
+distance: 78.46
+distance: 78.45
+distance: 78.46
+distance: 78.02
+distance: 78.89
+distance: 79.29
+distance: 78.51
+distance: 78.87
+distance: 78.04
+distance: 78.87
+distance: 78.87
+distance: 78.05
+distance: 78.49
+distance: 78.91
+distance: 78.87
+distance: 78.47
+distance: 78.87
+distance: 79.30
+distance: 78.47
+distance: 78.49
+distance: 78.47
+distance: 78.47
+distance: 78.02
+distance: 78.51
+distance: 78.48
+distance: 78.49
+distance: 78.88
+distance: 78.90
+distance: 79.32
+distance: 78.05
+distance: 78.89
+distance: 78.06
+distance: 78.47
+distance: 79.31
+Publishing motor: "0 0"
+distance: 7.96
+Publishing motor: "0 0"
+distance: 7.24
+Publishing motor: "0 0"
+distance: 7.90
+Publishing motor: "0 0"
+distance: 5.07
+Publishing motor: "0 0"
+distance: 6.42
+Publishing motor: "0 0"
+distance: 8.02
+Publishing motor: "0 0"
+distance: 13.42
+Publishing motor: "0 0"
+distance: 5.48
+Publishing motor: "0 0"
+distance: 5.15
+Publishing motor: "0 0"
+distance: 5.50
+Publishing motor: "0 0"
+distance: 10.73
+distance: 78.42
+distance: 78.02
+distance: 78.45
+distance: 78.86
+distance: 78.00
+distance: 78.43
+distance: 78.41
+distance: 78.43
+distance: 78.41
+distance: 78.83
+distance: 78.86
+distance: 78.03
+distance: 78.03
+distance: 79.29
+distance: 78.46
+distance: 78.90
+distance: 78.04
+distance: 78.46
+distance: 78.89
+distance: 78.47
+distance: 78.88
+distance: 78.87
+distance: 78.92
+distance: 78.91
+distance: 78.92
+distance: 79.34
+distance: 78.02
+distance: 79.34
+distance: 78.48
+distance: 78.89
+distance: 78.89
+distance: 79.31
+distance: 78.92
+distance: 78.48
+distance: 79.32
+distance: 79.31
+distance: 78.45
+distance: 78.89
+distance: 79.31
+distance: 98.66
+Publishing motor: "0 0"
+distance: 14.92
+Publishing motor: "0 0"
+distance: 13.98
+Publishing motor: "0 0"
+distance: 14.70
+Publishing motor: "0 0"
+distance: 17.59
+distance: 77.92
+distance: 78.34
+distance: 77.92
+distance: 77.93
+distance: 133.02
+distance: 120.99
+distance: 77.90
+distance: 78.78
+distance: 78.34
+distance: 79.19
+distance: 78.76
+distance: 78.77
+distance: 79.17
+distance: 78.78
+distance: 79.19
+distance: 78.76
+distance: 78.78
+distance: 78.35
+distance: 77.93
+distance: 78.77
+distance: 78.77
+distance: 78.33
+distance: 79.19
+distance: 77.91
