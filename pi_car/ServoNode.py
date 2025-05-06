@@ -11,6 +11,9 @@ import time
 import os
 
 class MinimalSubscriber(Node):
+    
+    i = 0
+
     def __init__(self):
         super().__init__('minimal_subscriber')
 
@@ -68,7 +71,7 @@ class MinimalSubscriber(Node):
                         mid = float(lines[6].strip())
                         left = float(lines[7].strip())
                         right = float(lines[8].strip())
-                        self.get_logger().info(f'Loaded config: center={mid}, left={low}, right={high}')
+                        self.get_logger().info(f'Loaded config: center={mid}, left={left}, right={right}')
                         return mid, left, right
                     else:
                         self.get_logger().warn('Config file found but not enough values.')

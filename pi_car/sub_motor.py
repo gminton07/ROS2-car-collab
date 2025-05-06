@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -30,6 +30,7 @@ class MinimalSubscriber(Node):
         self.in1 = 13
         self.in2 = 12
         self.pwm_pin = self.motor_init(self.in1, self.in2, self.en, 1000, 50)    # Change starting DC
+        self.stop = False
 
 
     def motor_init(self, in1, in2, en, freq, dutyCycle):
