@@ -1,0 +1,66 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+distance: 78.87
+distance: 78.84
+distance: 77.98
+distance: 78.41
+distance: 78.43
+distance: 78.83
+distance: 79.23
+distance: 79.25
+distance: 78.42
+distance: 78.41
+distance: 79.22
+distance: 79.25
+distance: 78.38
+distance: 77.97
+distance: 79.24
+distance: 79.25
+distance: 79.23
+Publishing motor: "0 0"
+distance: 8.16
+distance: 79.13
+distance: 78.75
+distance: 78.74
+distance: 79.19
+distance: 77.92
+distance: 78.74
+distance: 78.37
+distance: 77.93
+distance: 78.81
+distance: 99.45
+Publishing motor: "0 0"
+distance: 16.82
+Publishing motor: "0 0"
+distance: 14.30
+distance: 77.96
+distance: 79.21
+distance: 78.81
+distance: 78.82
+distance: 77.95
+distance: 79.24
+distance: 78.36
+distance: 79.59
+distance: 2247.57
+distance: 2247.13
+distance: 80.05
+distance: 88.94
+distance: 90.50
+Publishing motor: "0 0"
+distance: 10.63
+Publishing motor: "0 0"
+distance: 10.30
+Publishing motor: "0 0"
+distance: 11.29
+distance: 79.55
+distance: 78.78
+distance: 78.35
+distance: 78.76
+distance: 79.19
+distance: 77.92
+distance: 78.39
+distance: 78.78
+distance: 77.94
+distance: 77.95
+distance: 79.21
+distance: 78.81

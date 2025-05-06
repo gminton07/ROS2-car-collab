@@ -1,0 +1,119 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+Publishing motor: "70 -1"
+Publishing servo: "10 10 10"
+mx: -123.72	my: 203.19	mz: -291.16	temp: 29.80
+ax: 10.27	ay: 0.06	az: 0.24	gx: -0.03	gy: 0.00	 gz: -0.00
+distance: 54.96
+Image received successfully!
+adc: 842	adc_diff: 0	mvgAvg: 336.8
+mx: -123.34	my: 202.74	mz: -291.23	temp: 29.80
+ax: 10.18	ay: 0.09	az: 0.29	gx: -0.03	gy: 0.00	 gz: 0.00
+distance: 54.92
+Image received successfully!
+adc: 842	adc_diff: 0	mvgAvg: 505.2
+ax: 10.16	ay: 0.04	az: 0.37	gx: -0.04	gy: 0.00	 gz: -0.00
+distance: 56.45
+adc: 861	adc_diff: 19	mvgAvg: 677.4
+Image received successfully!
+ax: 10.28	ay: 0.02	az: 0.53	gx: -0.03	gy: -0.00	 gz: 0.02
+mx: -117.36	my: 199.02	mz: -293.51	temp: 29.80
+distance: 55.18
+adc: 900	adc_diff: 39	mvgAvg: 857.4
+Image received successfully!
+ax: 10.24	ay: 0.22	az: -0.13	gx: -0.04	gy: 0.01	 gz: 0.01
+distance: 56.03
+mx: -122.43	my: 198.30	mz: -295.36	temp: 29.80
+adc: 873	adc_diff: -27	mvgAvg: 863.6
+Image received successfully!
+ax: 10.16	ay: 0.27	az: -0.04	gx: -0.04	gy: -0.00	 gz: -0.01
+distance: 56.00
+adc: 859	adc_diff: -14	mvgAvg: 867.0
+Image received successfully!
+ax: 10.26	ay: -0.18	az: 0.04	gx: -0.03	gy: 0.01	 gz: -0.00
+mx: -118.74	my: 197.09	mz: -292.05	temp: 29.80
+distance: 55.19
+adc: 907	adc_diff: 48	mvgAvg: 880.0
+Image received successfully!
+ax: 10.31	ay: 0.10	az: 0.19	gx: -0.04	gy: 0.01	 gz: -0.00
+distance: 55.20
+mx: -119.66	my: 197.38	mz: -292.12	temp: 29.80
+adc: 931	adc_diff: 24	mvgAvg: 894.0
+Image received successfully!
+ax: 9.78	ay: 0.29	az: 0.66	gx: -0.03	gy: -0.02	 gz: 0.02
+distance: 55.21
+adc: 869	adc_diff: -62	mvgAvg: 887.8
+Image received successfully!
+ax: 9.91	ay: 0.26	az: 0.81	gx: -0.03	gy: -0.03	 gz: 0.02
+mx: -123.60	my: 197.80	mz: -295.13	temp: 29.00
+distance: 54.81
+adc: 880	adc_diff: 11	mvgAvg: 889.2
+Image received successfully!
+ax: 10.31	ay: -0.09	az: -0.51	gx: -0.04	gy: 0.01	 gz: 0.01
+distance: 55.19
+mx: -120.87	my: 198.82	mz: -291.49	temp: 29.00
+adc: 936	adc_diff: 56	mvgAvg: 904.6
+Image received successfully!
+ax: 9.61	ay: 0.36	az: -0.40	gx: -0.04	gy: -0.01	 gz: 0.00
+Publishing motor: "0 0"
+distance: 33.12
+adc: 890	adc_diff: -46	mvgAvg: 901.2
+Image received successfully!
+ax: 10.37	ay: 0.11	az: 0.36	gx: -0.04	gy: 0.00	 gz: -0.01
+mx: -121.46	my: 200.95	mz: -290.68	temp: 29.80
+Publishing motor: "0 0"
+distance: 31.83
+adc: 821	adc_diff: -69	mvgAvg: 879.2
+Image received successfully!
+ax: 10.28	ay: 0.11	az: 0.22	gx: -0.04	gy: 0.00	 gz: -0.00
+Publishing motor: "0 0"
+distance: 31.53
+mx: -121.28	my: 200.86	mz: -290.46	temp: 29.80
+adc: 822	adc_diff: 1	mvgAvg: 869.8
+Image received successfully!
+ax: 10.17	ay: 0.02	az: 0.36	gx: -0.03	gy: 0.00	 gz: -0.00
+Publishing motor: "0 0"
+distance: 35.16
+adc: 822	adc_diff: 0	mvgAvg: 858.2
+Image received successfully!
+ax: 10.19	ay: 0.14	az: 0.32	gx: -0.04	gy: 0.00	 gz: 0.00
+mx: -121.39	my: 200.78	mz: -290.06	temp: 29.80
+Publishing motor: "0 0"
+distance: 36.31
+adc: 824	adc_diff: 2	mvgAvg: 835.8
+Image received successfully!
+ax: 10.18	ay: 0.03	az: 0.31	gx: -0.04	gy: 0.00	 gz: -0.00
+Publishing motor: "0 0"
+distance: 33.52
+mx: -121.33	my: 200.77	mz: -289.99	temp: 29.80
+adc: 824	adc_diff: 0	mvgAvg: 822.6
+Image received successfully!
+ax: 10.21	ay: 0.08	az: 0.28	gx: -0.04	gy: 0.00	 gz: -0.00
+distance: 56.92
+adc: 825	adc_diff: 1	mvgAvg: 823.4
+Image received successfully!
+ax: 10.20	ay: 0.09	az: 0.31	gx: -0.04	gy: 0.01	 gz: -0.00
+mx: -121.50	my: 200.67	mz: -290.11	temp: 29.80
+distance: 55.63
+adc: 825	adc_diff: 0	mvgAvg: 824.0
+Image received successfully!
+ax: 10.19	ay: 0.13	az: 0.29	gx: -0.04	gy: -0.00	 gz: -0.00
+distance: 56.02
+mx: -121.33	my: 200.76	mz: -289.94	temp: 29.80
+adc: 823	adc_diff: -2	mvgAvg: 824.2
+Image received successfully!
+ax: 10.18	ay: 0.05	az: 0.23	gx: -0.04	gy: -0.00	 gz: 0.00
+distance: 56.90
+adc: 823	adc_diff: 0	mvgAvg: 824.0
+Image received successfully!
+ax: 10.22	ay: 0.15	az: 0.37	gx: -0.04	gy: -0.00	 gz: 0.00
+mx: -121.15	my: 200.87	mz: -290.22	temp: 29.80
+distance: 67.60
+adc: 822	adc_diff: -1	mvgAvg: 823.6
+Image received successfully!
+ax: 10.28	ay: 0.01	az: 0.25	gx: -0.04	gy: 0.01	 gz: -0.00
+distance: 55.24
+mx: -121.11	my: 200.81	mz: -290.21	temp: 29.80
+adc: 821	adc_diff: -1	mvgAvg: 822.8
+Image received successfully!
+ax: 10.21	ay: 0.04	az: 0.17	gx: -0.03	gy: 0.00	 gz: -0.00

@@ -8,6 +8,17 @@ import Adafruit_PCA9685 as PWM_HAT
 import os.path
 
 class MinimalSubscriber(Node):
+
+    # Global variables
+    PICAR_CONFIG_FILE_NAME = 'PICAR_CONFIG.txt'
+    SERVO_NOD, SERVO_SWIVEL, SERVO_STEER = (0, 1, 2)
+
+    #_servo_nod_left, _servo_nod_middle, _servo_nod_right = (290, 310, 330)
+    _servo_nod_left, _servo_nod_middle, _servo_nod_right = (245, 270, 295)
+    _servo_swivel_left, _servo_swivel_middle, _servo_swivel_right = (290, 310, 330)
+    _servo_steer_left, _servo_steer_middle, _servo_steer_right = (290, 310, 330)
+
+
     def __init__(self):
         super().__init__('minimal_subscriber')
         self.subscription = self.create_subscription(
@@ -18,33 +29,33 @@ class MinimalSubscriber(Node):
         self.subscription   # prevent unused variable warning
         self.get_logger().info('I initialized the subscriber')
 
-        # Global variables
-        PICAR_CONFIG_FILE_NAME = 'PICAR_CONFIG.txt'
-        SERVO_NOD, SERVO_SWIVEL, SERVO_STEER = (0, 1, 2)
-
         self._servo_global_pwm = PWM_HAT.PCA9685()
         self._servo_global_pwm.set_pwm_freq(60)
-
-        # TODO: only initializing NOD, come back for rest later...
-        _servo_global_pwm = None
-        _servo_nod_pin, _servo_nod_pwm = (None, None)
-        _servo_nod_left, _servo_nod_middle, _servo_nod_right = (290, 310, 330)
-        nod_servo_state = 0
 
         # Get config file settings
         if os.path.exists(self.PICAR_CONFIG_FILE_NAME):
             print('servo configuration found!')
             with open(self.PICAR_CONFIG_FILE_NAME, 'r') as config:
                 configuration = config.readlines()
-                if len(configuration < 9):
+                if len(configuration) < 9:
                     print('invalid configuration')
+                    self.get_logger().error('Invalid servo configuration')
                 else:
                     self.configure_nod_servo_positions(
                             int(configuration[1]),
                             int(configuration[0]),
                             int(configuration[2]),
                             )
-        self._servo_nod_pin = SERVO_NOD
+                    self.configure_swivel_servo_positions(
+                            int(configuration[4]),
+                            int(configuration[3]),
+                            int(configuration[5]),
+                            )
+                    self.configure_steer_servo_positions(
+                            int(configuration[7]),
+                            int(configuration[6]),
+                            int(configuration[8]),
+                            )
 
     def _calc_servo_duty_cycle(self, left, middle, right, amount, is_left):
         return (
@@ -60,23 +71,46 @@ class MinimalSubscriber(Node):
 
         is_left, amount = (value < 0, abs(value))
         duty_cycle = None
-        if servo == MinimalSubscriber.SERVO_NOD:
+        if servo == self.SERVO_NOD:
             duty_cycle = self._calc_servo_duty_cycle(
                     self._servo_nod_left,
                     self._servo_nod_middle,
                     self._servo_nod_right,
                     amount,
                     is_left,)
-            self._servo_global_pwm.set_pwm(self._servo_nod_pin, 0, int(duty_cycle))
+            self._servo_global_pwm.set_pwm(self.SERVO_NOD, 0, int(duty_cycle))
+        elif servo == self.SERVO_SWIVEL:
+                    duty_cycle = self._calc_servo_duty_cycle(
+                            self._servo_swivel_left,
+                            self._servo_swivel_middle,
+                            self._servo_swivel_right,
+                            amount,
+                            is_left,)
+                    self._servo_global_pwm.set_pwm(self.SERVO_SWIVEL, 0, int(duty_cycle))
+        elif servo == self.SERVO_STEER:
+                    duty_cycle = self._calc_servo_duty_cycle(
+                            self._servo_steer_left,
+                            self._servo_steer_middle,
+                            self._servo_steer_right,
+                            amount,
+                            is_left,)
+                    self._servo_global_pwm.set_pwm(self.SERVO_STEER, 0, int(duty_cycle))
 
     def configure_nod_servo_positions(self, left=None, middle=None, right=None):
         self._servo_nod_left = left
         self._servo_nod_middle = middle
         self._servo_nod_right = right
+ 
+    def configure_swivel_servo_positions(self, left=None, middle=None, right=None):
+        self._servo_swivel_left = left
+        self._servo_swivel_middle = middle
+        self._servo_swivel_right = right
         
-
-    # TODO: Get servo updater code
-
+    def configure_steer_servo_positions(self, left=None, middle=None, right=None):
+        self._servo_steer_left = left
+        self._servo_steer_middle = middle
+        self._servo_steer_right = right
+        
     def listener_servo(self, msg):
         [nod, swivel, steer] = str(msg.data).split()
         nod = float(nod)
@@ -87,6 +121,8 @@ class MinimalSubscriber(Node):
 
         # nod 0, swivel 1, steer 2
         self._set_servo(0, nod)
+        self._set_servo(1, swivel)
+        self._set_servo(2, steer)
 
 
 def main(args=None):
