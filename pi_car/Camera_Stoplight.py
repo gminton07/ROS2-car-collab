@@ -51,13 +51,13 @@ class MinimalPublisher(Node):
         #cv2.imwrite('mask1.jpg', mask)
         count = np.sum(np.nonzero(mask))
         #print("count =",count)
-        if count == 0:
+	upperbound=10000000
+        if count<upperbound:
             result.data = False
         else:
             result.data = True
     
         self.publisher_.publish(result)
-        self.get_logger().info(f'Stoplight {result.data}')
         self.i += 1
 
 

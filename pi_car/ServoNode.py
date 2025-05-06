@@ -71,8 +71,8 @@ class MinimalSubscriber(Node):
                         self.get_logger().info(f'Loaded config: center={self.angle_center}, left={self.angle_left}, right={self.angle_right}')
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
-            except Exception as e:
-                self.get_logger().error(f'Failed to load config: {e}')
+	    except Exception as e:
+		self.get_logger().error(f'Failed to load config: {e}')
         else:
             self.get_logger().info('No servo config found. Using defaults.')
 
