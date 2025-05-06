@@ -193,7 +193,7 @@ def main(args=None):
 
     subscriber_publisher = SubscriberPublisher()
 
-    subscriber_publisher.publish_motor(dutyCycle=80, direction=1)
+    subscriber_publisher.publish_motor(dutyCycle=50, direction=1)
     subscriber_publisher.publish_servo(args=[0, 0, 0])
    
     #TODO: This is one method for updating motor and servo values

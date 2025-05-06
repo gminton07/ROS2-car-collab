@@ -10,7 +10,7 @@ import os.path
 class MinimalSubscriber(Node):
 
     # Global variables
-    PICAR_CONFIG_FILE_NAME = 'PICAR_CONFIG.txt'
+    PICAR_CONFIG_FILE_NAME = '/home/gabe/ros2_ws/src/pi_car/pi_car/PICAR_CONFIG.txt'
     SERVO_NOD, SERVO_SWIVEL, SERVO_STEER = (0, 1, 2)
 
     #_servo_nod_left, _servo_nod_middle, _servo_nod_right = (290, 310, 330)
@@ -56,6 +56,8 @@ class MinimalSubscriber(Node):
                             int(configuration[6]),
                             int(configuration[8]),
                             )
+        else:
+            print('NO Config happening')
 
     def _calc_servo_duty_cycle(self, left, middle, right, amount, is_left):
         return (

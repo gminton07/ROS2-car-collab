@@ -58,7 +58,7 @@ class MinimalSubscriber(Node):
         self.turning = False  # For managing intersection turns
 
     def load_servo_config(self):
-        config_file = 'PICAR_CONFIG.txt'
+        config_file = '/home/gabe/ros2_ws/src/pi_car/pi_car/PICAR_CONFIG.txt'
         if os.path.exists(config_file):
             self.get_logger().info('Servo config file found. Loading values...')
             try:
@@ -66,10 +66,10 @@ class MinimalSubscriber(Node):
                     lines = f.readlines()
                     if len(lines) >= 9:
                         mid = float(lines[6].strip())
-                        low = float(lines[7].strip())
-                        high = float(lines[8].strip())
+                        left = float(lines[7].strip())
+                        right = float(lines[8].strip())
                         self.get_logger().info(f'Loaded config: center={mid}, left={low}, right={high}')
-                        return mid, low, high
+                        return mid, left, right
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
             except Exception as e:
@@ -80,12 +80,12 @@ class MinimalSubscriber(Node):
     # If loading failed or file not found, return default values
             return 0.0, 0.0, 0.0  # Replace with your desired default values
 
-    def map_steering_angle(self, angle, mid, low, high):
-        if mid is None or high is None:
+    def map_steering_angle(self, angle, mid, left, right):
+        if mid is None or left is None:
             self.get_logger().warn('Invalid servo calibration values.')
             return 0.0
 
-        steer_angle = ((angle - mid) / (high - mid)) * 10
+        steer_angle = ((angle - mid) / (left - mid)) * 10
         return steer_angle
 
     def publish_servo_command(self):
@@ -101,8 +101,8 @@ class MinimalSubscriber(Node):
         if not self.turning:
             line_angle = msg.data
             self.get_logger().info(f"Received lane steering angle: {line_angle}")
-            mid, low, high = self.load_servo_config()
-            mapped_angle = self.map_steering_angle(line_angle, mid, low, high)
+            mid, left, right = self.load_servo_config()
+            mapped_angle = self.map_steering_angle(line_angle, mid, left, right)
             self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
 
             self.servo_angle = mapped_angle
@@ -152,11 +152,11 @@ class MinimalSubscriber(Node):
         slight_turn_amount = 2
 
         if msg.data == 'a':
-            self.servo_angle = max(-10, self.current_angle + slight_turn_amount)
+            self.servo_angle = max(-10, self.current_angle - slight_turn_amount)
             self.current_angle = self.servo_angle
             self.get_logger().info(f"Slightly steering left: {self.servo_angle}")
         elif msg.data == 'd':
-            self.servo_angle = min(10, self.current_angle - slight_turn_amount)
+            self.servo_angle = min(10, self.current_angle + slight_turn_amount)
             self.current_angle = self.servo_angle
             self.get_logger().info(f"Slightly steering right: {self.servo_angle}")
         elif msg.data == 's':
