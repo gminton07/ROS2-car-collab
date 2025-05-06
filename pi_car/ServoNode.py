@@ -68,18 +68,26 @@ class MinimalSubscriber(Node):
                         mid = float(lines[7].strip())
                         low = float(lines[6].strip())
                         high = float(lines[8].strip())
-                        self.get_logger().info(f'Loaded config: center={self.angle_center}, left={self.angle_left}, right={self.angle_right}')
+                        self.get_logger().info(f'Loaded config: center={mid}, left={low}, right={high}')
+                        return mid, low, high
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
             except Exception as e:
-		self.get_logger().error(f'Failed to load config: {e}')
+                self.get_logger().error(f'Failed to load config: {e}')
         else:
             self.get_logger().info('No servo config found. Using defaults.')
-	return mid, low, high
 
-    def map_steering_angle(self,angle, mid, low, high):
-	steer_angle = ((self-mid)/(high - mid)) *10
-	return steer_angle	
+    # If loading failed or file not found, return default values
+            return 0.0, 0.0, 0.0  # Replace with your desired default values
+
+    def map_steering_angle(self, angle, mid, low, high):
+        if mid is None or high is None:
+            self.get_logger().warn('Invalid servo calibration values.')
+            return 0.0
+
+        steer_angle = ((angle - mid) / (high - mid)) * 10
+        return steer_angle
+
     def publish_servo_command(self):
         nod = 0.0
         swivel = 0.0
@@ -93,8 +101,8 @@ class MinimalSubscriber(Node):
         if not self.turning:
             line_angle = msg.data
             self.get_logger().info(f"Received lane steering angle: {line_angle}")
-
-            mapped_angle = self.map_steering_angle(line_angle)
+            mid, low, high = load_servo_config()
+            mapped_angle = self.map_steering_angle(line_angle, mid, low, high)
             self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
 
             self.servo.angle = mapped_angle
@@ -106,7 +114,7 @@ class MinimalSubscriber(Node):
             self.get_logger().info("Intersection detected. Performing turn.")
             self.turning = True
 
-            turn_angle = self.current_angle + 7 if self.current_angle < (self.angle_right - 7) else self.current_angle - 7
+            turn_angle = self.current_angle + 3 if self.current_angle < (self.angle_right - 3) else self.current_angle - 3
             self.servo.angle = turn_angle
             self.current_angle = turn_angle
             self.publish_servo_command()

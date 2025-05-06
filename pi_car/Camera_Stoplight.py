@@ -46,7 +46,6 @@ class MinimalPublisher(Node):
 
         # convert to HSV
         hsv_img = cv2.cvtColor(top_half, cv2.COLOR_BGR2HSV)
-        cv2.imwrite('top-half', hsv_img)
         # red color range in HSV (adjust if needed)
         lower_red1 = np.array([0, 100, 100])
         upper_red1 = np.array([10, 255, 255])
@@ -57,7 +56,7 @@ class MinimalPublisher(Node):
         mask1 = cv2.inRange(hsv_img, lower_red1, upper_red1)
         mask2 = cv2.inRange(hsv_img, lower_red2, upper_red2)
         mask = cv2.bitwise_or(mask1, mask2)
-
+        cv2.imwrite('top-half.jpg',mask) 
         # count non-zero (red) pixels 
         count = np.sum(mask > 0)
 
