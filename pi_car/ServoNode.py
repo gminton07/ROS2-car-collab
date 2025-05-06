@@ -23,7 +23,7 @@ class MinimalSubscriber(Node):
 
         # Initialize servo position to center
         self.current_angle = self.angle_center
-        self.servo.angle = self.current_angle
+        self.servo_angle = self.current_angle
 
         # Publisher to topic_servo
         self.servo_command_publisher = self.create_publisher(String, 'topic_servo', 10)
@@ -65,8 +65,8 @@ class MinimalSubscriber(Node):
                 with open(config_file, 'r') as f:
                     lines = f.readlines()
                     if len(lines) >= 9:
-                        mid = float(lines[7].strip())
-                        low = float(lines[6].strip())
+                        mid = float(lines[6].strip())
+                        low = float(lines[7].strip())
                         high = float(lines[8].strip())
                         self.get_logger().info(f'Loaded config: center={mid}, left={low}, right={high}')
                         return mid, low, high
@@ -101,11 +101,11 @@ class MinimalSubscriber(Node):
         if not self.turning:
             line_angle = msg.data
             self.get_logger().info(f"Received lane steering angle: {line_angle}")
-            mid, low, high = load_servo_config()
+            mid, low, high = self.load_servo_config()
             mapped_angle = self.map_steering_angle(line_angle, mid, low, high)
             self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
 
-            self.servo.angle = mapped_angle
+            self.servo_angle = mapped_angle
             self.current_angle = mapped_angle
             self.publish_servo_command()
 
@@ -115,13 +115,13 @@ class MinimalSubscriber(Node):
             self.turning = True
 
             turn_angle = self.current_angle + 3 if self.current_angle < (self.angle_right - 3) else self.current_angle - 3
-            self.servo.angle = turn_angle
+            self.servo_angle = turn_angle
             self.current_angle = turn_angle
             self.publish_servo_command()
 
             time.sleep(2)
 
-            self.servo.angle = self.angle_center
+            self.servo_angle = self.angle_center
             self.current_angle = self.angle_center
             self.publish_servo_command()
             time.sleep(0.2)
@@ -133,14 +133,14 @@ class MinimalSubscriber(Node):
             self.get_logger().info("Camera triggered evasive turn.")
             self.turning = True
 
-            turn_angle = self.current_angle + 20 if self.current_angle < (self.angle_right - 20) else self.current_angle - 20
-            self.servo.angle = turn_angle
+            turn_angle = self.current_angle + 3 if self.current_angle < (self.angle_right - 3) else self.current_angle - 3
+            self.servo_angle = turn_angle
             self.current_angle = turn_angle
             self.publish_servo_command()
 
             time.sleep(7)
 
-            self.servo.angle = self.angle_center
+            self.servo_angle = self.angle_center
             self.current_angle = self.angle_center
             self.publish_servo_command()
             time.sleep(0.2)
@@ -149,20 +149,20 @@ class MinimalSubscriber(Node):
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard input: %s' % msg.data)
-        slight_turn_amount = 5
+        slight_turn_amount = 2
 
-        if msg.data == 's':
-            self.servo.angle = max(self.angle_left, self.current_angle - slight_turn_amount)
-            self.current_angle = self.servo.angle
-            self.get_logger().info(f"Slightly steering left: {self.servo.angle}")
+        if msg.data == 'a':
+            self.servo_angle = max(-10, self.current_angle + slight_turn_amount)
+            self.current_angle = self.servo_angle
+            self.get_logger().info(f"Slightly steering left: {self.servo_angle}")
         elif msg.data == 'd':
-            self.servo.angle = min(self.angle_right, self.current_angle + slight_turn_amount)
-            self.current_angle = self.servo.angle
-            self.get_logger().info(f"Slightly steering right: {self.servo.angle}")
-        elif msg.data == 'e':
-            self.servo.angle = self.angle_center
-            self.current_angle = self.angle_center
-            self.get_logger().info(f"Centering: {self.angle_center}")
+            self.servo_angle = min(10, self.current_angle - slight_turn_amount)
+            self.current_angle = self.servo_angle
+            self.get_logger().info(f"Slightly steering right: {self.servo_angle}")
+        elif msg.data == 's':
+            self.servo_angle = 0
+            self.current_angle = 0
+            self.get_logger().info(f"Centering: 0")
         
         self.publish_servo_command()
 
