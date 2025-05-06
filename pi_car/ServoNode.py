@@ -65,25 +65,21 @@ class MinimalSubscriber(Node):
                 with open(config_file, 'r') as f:
                     lines = f.readlines()
                     if len(lines) >= 9:
-                        self.angle_center = float(lines[7].strip())
-                        self.angle_left = float(lines[6].strip())
-                        self.angle_right = float(lines[8].strip())
+                        mid = float(lines[7].strip())
+                        low = float(lines[6].strip())
+                        high = float(lines[8].strip())
                         self.get_logger().info(f'Loaded config: center={self.angle_center}, left={self.angle_left}, right={self.angle_right}')
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
-	    except Exception as e:
+            except Exception as e:
 		self.get_logger().error(f'Failed to load config: {e}')
         else:
             self.get_logger().info('No servo config found. Using defaults.')
+	return mid, low, high
 
-    def map_steering_angle(self, normalized_angle):
-        if normalized_angle < 90.0:
-            mapped_angle = self.angle_center - (90.0 - normalized_angle) / 90.0 * (self.angle_center - self.angle_left)
-        else:
-            mapped_angle = self.angle_center + (normalized_angle - 90.0) / 90.0 * (self.angle_right - self.angle_center)
-        mapped_angle = max(self.angle_left, min(self.angle_right, mapped_angle))
-        return mapped_angle
-
+    def map_steering_angle(self,angle, mid, low, high):
+	steer_angle = ((self-mid)/(high - mid)) *10
+	return steer_angle	
     def publish_servo_command(self):
         nod = 0.0
         swivel = 0.0
@@ -110,12 +106,12 @@ class MinimalSubscriber(Node):
             self.get_logger().info("Intersection detected. Performing turn.")
             self.turning = True
 
-            turn_angle = self.current_angle + 20 if self.current_angle < (self.angle_right - 20) else self.current_angle - 20
+            turn_angle = self.current_angle + 7 if self.current_angle < (self.angle_right - 7) else self.current_angle - 7
             self.servo.angle = turn_angle
             self.current_angle = turn_angle
             self.publish_servo_command()
 
-            time.sleep(7)
+            time.sleep(2)
 
             self.servo.angle = self.angle_center
             self.current_angle = self.angle_center
