@@ -90,10 +90,10 @@ class LaneDetectionNode(Node):
         
         # Convert to grayscale and blur
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        #blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         
         # Canny edge detection
-        edges = cv2.Canny(blurred, self.canny_low, self.canny_high)
+        edges = cv2.Canny(gray, self.canny_low, self.canny_high)
         
         # Create main ROI mask (trapezoid)
         mask = np.zeros_like(edges)
@@ -221,13 +221,15 @@ class LaneDetectionNode(Node):
         left_avg = np.average(left_lines, axis=0) if left_lines else None
         right_avg = np.average(right_lines, axis=0) if right_lines else None
         
+        
         # Calculate steering angle based on detected lines
         if left_avg is not None and right_avg is not None:
             # Both lanes detected
             left_x = (image_height - left_avg[1]) / left_avg[0]
             right_x = (image_height - right_avg[1]) / right_avg[0]
             midpoint = (left_x + right_x) / 2
-            steering_angle = np.arctan2((image_width/2 - midpoint), image_height) * 180 / np.pi
+            deviation = (image_width / 2) - midpoint
+            steering_angle = (deviation / (image_width / 2)) * 10  # Normalize to range -10 to 10
         elif left_avg is not None:
             # Only left lane detected
             steering_angle = 10.0  # Turn right
@@ -237,6 +239,10 @@ class LaneDetectionNode(Node):
         else:
             # No lanes detected
             steering_angle = 0.0
+
+        # Clamp the steering angle to ensure it's within -10 to 10
+        steering_angle = max(-10, min(10, steering_angle))
+
         
         return steering_angle
 
