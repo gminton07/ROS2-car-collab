@@ -1,0 +1,28 @@
+Publishing motor: "80 1"
+Publishing servo: "0 0 0"
+ax: 10.16	ay: -0.57	az: 0.34	gx: -0.04	gy: 0.01	 gz: -0.03
+adc: 1023	adc_diff: 0	mvgAvg: 613.8
+distance: 278.35
+ax: 10.26	ay: -0.40	az: 0.47	gx: -0.04	gy: 0.00	 gz: -0.01
+Image received successfully!
+mx: -127.21	my: 163.19	mz: -329.71	temp: 31.40
+adc: 960	adc_diff: -63	mvgAvg: 805.8
+Image received successfully!
+distance: 279.46
+ax: 10.20	ay: -0.52	az: 0.46	gx: -0.06	gy: 0.02	 gz: -0.02
+adc: 513	adc_diff: -447	mvgAvg: 908.4
+mx: -124.99	my: 165.51	mz: -328.78	temp: 31.40
+Image received successfully!
+distance: 217.39
+ax: 10.54	ay: -1.69	az: 3.68	gx: -0.10	gy: 0.01	 gz: 0.01
+adc: 511	adc_diff: -2	mvgAvg: 806.0
+Image received successfully!
+distance: 281.22
+ax: 10.28	ay: -0.18	az: -1.70	gx: 0.02	gy: 0.04	 gz: -0.02
+mx: -125.04	my: 163.43	mz: -327.70	temp: 31.40
+adc: 1023	adc_diff: 512	mvgAvg: 806.0
+Image received successfully!
+distance: 279.25
+ax: 9.75	ay: -0.38	az: 1.54	gx: -0.04	gy: 0.01	 gz: 0.00
+adc: 63	adc_diff: -960	mvgAvg: 614.0
+mx: -124.69	my: 163.22	mz: -328.61	temp: 31.40
