@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 import rclpy
@@ -196,12 +195,14 @@ class LaneDetectionNode(Node):
             angle = np.arctan2(y2 - y1, x2 - x1) * 180 / np.pi
             if abs(angle) < self.horizontal_angle_thresh or abs(angle - 180) < self.horizontal_angle_thresh:
                 detected = True
+                self.get_logger().info(f"Horizontal line detected: ({x1}, {y1}) to ({x2}, {y2}), angle: {angle:.2f}°")
                 break
                 
         return detected
 
     def calculate_steering_angle(self, lines, image_width, image_height):
         if lines is None:
+            self.get_logger().info("No lines detected, steering angle set to 0.0")
             return 0.0  # Return straight angle if no lines detected
         
         left_lines = []
@@ -221,28 +222,31 @@ class LaneDetectionNode(Node):
         left_avg = np.average(left_lines, axis=0) if left_lines else None
         right_avg = np.average(right_lines, axis=0) if right_lines else None
         
-        
         # Calculate steering angle based on detected lines
         if left_avg is not None and right_avg is not None:
             # Both lanes detected
             left_x = (image_height - left_avg[1]) / left_avg[0]
             right_x = (image_height - right_avg[1]) / right_avg[0]
             midpoint = (left_x + right_x) / 2
-            deviation = (image_width / 2) - midpoint
-            steering_angle = (deviation / (image_width / 2)) * 10  # Normalize to range -10 to 10
+            deviation = midpoint - (image_width / 2)
+            steering_angle = -(deviation / (image_width / 2)) * 10  # Normalize to range -10 to 10
+            self.get_logger().info(f"Both lanes detected. Left X: {left_x}, Right X: {right_x}, Midpoint: {midpoint}, Deviation: {deviation}, Steering Angle: {steering_angle}")
         elif left_avg is not None:
             # Only left lane detected
             steering_angle = 10.0  # Turn right
+            self.get_logger().info("Only left lane detected, steering angle set to 10.0 (turn right)")
         elif right_avg is not None:
             # Only right lane detected
             steering_angle = -10.0  # Turn left
+            self.get_logger().info("Only right lane detected, steering angle set to -10.0 (turn left)")
         else:
             # No lanes detected
             steering_angle = 0.0
-
+            self.get_logger().info("No lanes detected, steering angle set to 0.0")
+        
         # Clamp the steering angle to ensure it's within -10 to 10
         steering_angle = max(-10, min(10, steering_angle))
-
+        self.get_logger().info(f"Final clamped steering angle: {steering_angle}")
         
         return steering_angle
 
