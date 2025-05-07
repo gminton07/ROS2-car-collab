@@ -40,13 +40,14 @@ class MinimalPublisher(Node):
 
         # red detection within top half of photo 
         frame = cv_image
+        cv2.imwrite('fullpic.jpg', cv_image)
         # dimensions top half
         height, width = frame.shape[:2]
         top_half = frame[0:int(height / 2), :]
 
         # convert to HSV
         hsv_img = cv2.cvtColor(top_half, cv2.COLOR_BGR2HSV)
-        cv2.imwrite('top-half', hsv_img)
+        cv2.imwrite('frame.jpg', hsv_img)
         # red color range in HSV (adjust if needed)
         lower_red1 = np.array([0, 100, 100])
         upper_red1 = np.array([10, 255, 255])
@@ -57,10 +58,10 @@ class MinimalPublisher(Node):
         mask1 = cv2.inRange(hsv_img, lower_red1, upper_red1)
         mask2 = cv2.inRange(hsv_img, lower_red2, upper_red2)
         mask = cv2.bitwise_or(mask1, mask2)
-
+        cv2.imwrite('top-half.jpg',mask) 
         # count non-zero (red) pixels 
         count = np.sum(mask > 0)
-
+        print(count)
         # threshold of non-zero pixels to count as stoplight 
         upperbound = 100000
         if count > upperbound:

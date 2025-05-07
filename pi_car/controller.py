@@ -31,6 +31,7 @@ class SubscriberPublisher(Node):
     frame = None
     adc, adc_diff, mvg_avg = (None, None, None)
     datafile = None
+    i_ult, i_cam = (1, 1)
 
 
     def __init__(self):
@@ -84,7 +85,6 @@ class SubscriberPublisher(Node):
         file = '/home/' + user + '/ros2_ws/src/pi_car/data/' + format_time + '.txt'
         self.datafile = open(file, 'w')
 
-
     def listener_mmu5603(self, msg):
         # rospy.loginfo(rospy.get_caller_id() + 'mmc5603 %s', data.data)
         [self.mx, self.my, self.mz, self.temp] = str(msg.data).split()
@@ -122,16 +122,18 @@ class SubscriberPublisher(Node):
             self.publish_ult_obstacle(True)
         else:
             self.publish_ult_obstacle(False)
-        if (self.status == 3 or self.status == 6):
+        if (self.status == 3 or self.status == 6) and (self.i_ult % 10 == 1):
             #print(f'distance: {self.distance}')
             self.get_logger().info(f'distance: {self.distance:.2f}')
             self.datafile.write(f'distance: {self.distance:.2f}\n')
+        self.i_ult += 1
 
     def listener_camera(self, msg):
         self.frame =self.bridge.imgmsg_to_cv2(msg)
-        if (self.status == 4 or self.status == 6):
+        if (self.status == 4 or self.status == 6) and (self.i_cam % 10 == 1):
             self.get_logger().info('Image received successfully!')
             self.datafile.write('Image received successfully!\n')
+        self.i_cam += 1
 
     def listener_mcp3008(self, msg):
         [self.adc, self.adc_diff, self.mvg_acg] = str(msg.data).split()
@@ -193,7 +195,7 @@ def main(args=None):
 
     subscriber_publisher = SubscriberPublisher()
 
-    subscriber_publisher.publish_motor(dutyCycle=80, direction=1)
+    subscriber_publisher.publish_motor(dutyCycle=50, direction=1)
     subscriber_publisher.publish_servo(args=[0, 0, 0])
    
     #TODO: This is one method for updating motor and servo values

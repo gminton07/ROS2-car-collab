@@ -11,6 +11,9 @@ import time
 import os
 
 class MinimalSubscriber(Node):
+    
+    i = 0
+
     def __init__(self):
         super().__init__('minimal_subscriber')
 
@@ -23,7 +26,7 @@ class MinimalSubscriber(Node):
 
         # Initialize servo position to center
         self.current_angle = self.angle_center
-        self.servo.angle = self.current_angle
+        self.servo_angle = self.current_angle
 
         # Publisher to topic_servo
         self.servo_command_publisher = self.create_publisher(String, 'topic_servo', 10)
@@ -44,7 +47,7 @@ class MinimalSubscriber(Node):
         self.subscription_camera = self.create_subscription(
             Bool,
             'topic_red_detected',
-            self.listener_camera,
+            self.listener_red,
             10)
         
         self.subscription = self.create_subscription(
@@ -58,28 +61,36 @@ class MinimalSubscriber(Node):
         self.turning = False  # For managing intersection turns
 
     def load_servo_config(self):
-        config_file = 'PICAR_CONFIG.txt'
+        config_file = '/home/gabe/ros2_ws/src/pi_car/pi_car/PICAR_CONFIG.txt'
         if os.path.exists(config_file):
             self.get_logger().info('Servo config file found. Loading values...')
             try:
                 with open(config_file, 'r') as f:
                     lines = f.readlines()
                     if len(lines) >= 9:
-                        mid = float(lines[7].strip())
-                        low = float(lines[6].strip())
-                        high = float(lines[8].strip())
-                        self.get_logger().info(f'Loaded config: center={self.angle_center}, left={self.angle_left}, right={self.angle_right}')
+                        mid = float(lines[6].strip())
+                        left = float(lines[7].strip())
+                        right = float(lines[8].strip())
+                        self.get_logger().info(f'Loaded config: center={mid}, left={left}, right={right}')
+                        return mid, left, right
                     else:
                         self.get_logger().warn('Config file found but not enough values.')
             except Exception as e:
-		self.get_logger().error(f'Failed to load config: {e}')
+                self.get_logger().error(f'Failed to load config: {e}')
         else:
             self.get_logger().info('No servo config found. Using defaults.')
-	return mid, low, high
 
-    def map_steering_angle(self,angle, mid, low, high):
-	steer_angle = ((self-mid)/(high - mid)) *10
-	return steer_angle	
+    # If loading failed or file not found, return default values
+            return 0.0, 0.0, 0.0  # Replace with your desired default values
+
+    def map_steering_angle(self, angle, mid, left, right):
+        if mid is None or left is None:
+            self.get_logger().warn('Invalid servo calibration values.')
+            return 0.0
+
+        steer_angle = ((angle - mid) / (left - mid)) * 10
+        return steer_angle
+
     def publish_servo_command(self):
         nod = 0.0
         swivel = 0.0
@@ -87,52 +98,56 @@ class MinimalSubscriber(Node):
         msg = String()
         msg.data = f"{nod} {swivel} {steer}"
         self.servo_command_publisher.publish(msg)
-        self.get_logger().info(f"Published to topic_servo: {msg.data}")
+        if (self.i % 10 == 0):
+            self.get_logger().info(f"Published to topic_servo: {msg.data}")
 
     def listener_angle(self, msg):
         if not self.turning:
             line_angle = msg.data
-            self.get_logger().info(f"Received lane steering angle: {line_angle}")
+            if (self.i % 10 == 0):
+                self.get_logger().info(f"Received lane steering angle: {line_angle}")
+            mid, left, right = self.load_servo_config()
+            mapped_angle = self.map_steering_angle(line_angle, mid, left, right)
+            #self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
 
-            mapped_angle = self.map_steering_angle(line_angle)
-            self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
-
-            self.servo.angle = mapped_angle
+            self.servo_angle = mapped_angle
             self.current_angle = mapped_angle
             self.publish_servo_command()
+
+            self.i += 1
 
     def listener_intersection(self, msg):
         if msg.data and not self.turning:
             self.get_logger().info("Intersection detected. Performing turn.")
             self.turning = True
 
-            turn_angle = self.current_angle + 7 if self.current_angle < (self.angle_right - 7) else self.current_angle - 7
-            self.servo.angle = turn_angle
+            turn_angle = self.current_angle + 3 if self.current_angle < (self.angle_right - 3) else self.current_angle - 3
+            self.servo_angle = turn_angle
             self.current_angle = turn_angle
             self.publish_servo_command()
 
             time.sleep(2)
 
-            self.servo.angle = self.angle_center
+            self.servo_angle = self.angle_center
             self.current_angle = self.angle_center
             self.publish_servo_command()
             time.sleep(0.2)
 
             self.turning = False
 
-    def listener_camera(self, msg):
+    def listener_red(self, msg):
         if msg.data and not self.turning:
             self.get_logger().info("Camera triggered evasive turn.")
             self.turning = True
 
-            turn_angle = self.current_angle + 20 if self.current_angle < (self.angle_right - 20) else self.current_angle - 20
-            self.servo.angle = turn_angle
+            turn_angle = self.current_angle + 3 if self.current_angle < (self.angle_right - 3) else self.current_angle - 3
+            self.servo_angle = turn_angle
             self.current_angle = turn_angle
             self.publish_servo_command()
 
             time.sleep(7)
 
-            self.servo.angle = self.angle_center
+            self.servo_angle = self.angle_center
             self.current_angle = self.angle_center
             self.publish_servo_command()
             time.sleep(0.2)
@@ -141,20 +156,20 @@ class MinimalSubscriber(Node):
 
     def listener_keyboard(self, msg):
         self.get_logger().info('Keyboard input: %s' % msg.data)
-        slight_turn_amount = 5
+        slight_turn_amount = 2
 
-        if msg.data == 's':
-            self.servo.angle = max(self.angle_left, self.current_angle - slight_turn_amount)
-            self.current_angle = self.servo.angle
-            self.get_logger().info(f"Slightly steering left: {self.servo.angle}")
+        if msg.data == 'a':
+            self.servo_angle = max(-10, self.current_angle - slight_turn_amount)
+            self.current_angle = self.servo_angle
+            self.get_logger().info(f"Slightly steering left: {self.servo_angle}")
         elif msg.data == 'd':
-            self.servo.angle = min(self.angle_right, self.current_angle + slight_turn_amount)
-            self.current_angle = self.servo.angle
-            self.get_logger().info(f"Slightly steering right: {self.servo.angle}")
-        elif msg.data == 'e':
-            self.servo.angle = self.angle_center
-            self.current_angle = self.angle_center
-            self.get_logger().info(f"Centering: {self.angle_center}")
+            self.servo_angle = min(10, self.current_angle + slight_turn_amount)
+            self.current_angle = self.servo_angle
+            self.get_logger().info(f"Slightly steering right: {self.servo_angle}")
+        elif msg.data == 's':
+            self.servo_angle = 0
+            self.current_angle = 0
+            self.get_logger().info(f"Centering: 0")
         
         self.publish_servo_command()
 

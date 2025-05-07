@@ -27,7 +27,7 @@ class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(String, 'topic_ultra', 10)
-        timer_period = 2  # TODO: change later
+        timer_period = 0.1
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
 
