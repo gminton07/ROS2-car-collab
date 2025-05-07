@@ -14,83 +14,96 @@ class LaneDetectionNode(Node):
     def __init__(self):
         super().__init__('lane_detection_node')
         
-        # Subscriber to camera feed
         self.subscription = self.create_subscription(
             Image,
             'topic_camera',
             self.image_callback,
             10)
         
-        # Publisher for steering angle
         self.angle_pub = self.create_publisher(Float32, 'lane_steering_angle', 10)
-        
-        # Publisher for intersection detection
         self.intersection_pub = self.create_publisher(Bool, 'intersection_detected', 10)
-        
-        # Publisher for debug images
         self.debug_pub = self.create_publisher(Image, 'lane_debug_image', 10)
         
         self.bridge = CvBridge()
-        self.debug_mode = True  # Enable debug by default
+        self.debug_mode = True
         
-        # Image processing parameters
+        # Processing parameters
         self.canny_low = 50
         self.canny_high = 150
         self.hough_threshold = 90
-        self.hough_min_line_length = 15
+        self.hough_min_line_length = 20
         self.hough_max_line_gap = 30
+        self.boundary_margin = 5
         
-        # ROI parameters with adjustable triangle cuts
-        self.horizontal_split = 0.5  # Vertical position to split image (0-1)
-        # Left triangle cuts (as percentages)
-        self.left_horz_cut = 0.35  # Horizontal cut percentage
-        self.left_vert_cut = 0.5  # Vertical cut percentage
-        # Right triangle cuts (as percentages)
-        self.right_horz_cut = 0.35  # Horizontal cut percentage
-        self.right_vert_cut = 0.5  # Vertical cut percentage
+        # ROI parameters
+        self.horizontal_split = 0.4
+        self.left_horz_cut = 0.35
+        self.left_vert_cut = 0.5
+        self.right_horz_cut = 0.35
+        self.right_vert_cut = 0.5
         
-        # Intersection detection parameters
+        # Intersection detection
         self.stop_line_roi_height = 0.3
         self.horizontal_angle_thresh = 10
         self.min_horizontal_length = 0.5
         self.detection_history_length = 5
         self.detection_threshold = 3
         
-        # Detection history buffer
         self.intersection_detections = deque(maxlen=self.detection_history_length)
-        
-        self.get_logger().info("Lane Detection Node initialized")
 
     def image_callback(self, msg):
         try:
             cv_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
             if cv_image is None or cv_image.size == 0:
-                self.get_logger().warn("Received empty image, skipping processing")
-                return
+               return
         except Exception as e:
-            self.get_logger().error(f"CV Bridge error: {str(e)}")
             return
 
-        # Process the image
         steering_angle, intersection_detected, debug_img = self.process_image(cv_image)
         
-        # Publish the steering angle
         angle_msg = Float32()
         angle_msg.data = steering_angle
         self.angle_pub.publish(angle_msg)
         
-        # Publish intersection detection
         intersection_msg = Bool()
         intersection_msg.data = intersection_detected
         self.intersection_pub.publish(intersection_msg)
         
-        # Publish debug image if enabled
         if self.debug_mode and debug_img is not None:
             try:
                 debug_msg = self.bridge.cv2_to_imgmsg(debug_img, "bgr8")
                 self.debug_pub.publish(debug_msg)
-            except Exception as e:
-                self.get_logger().error(f"Debug image error: {str(e)}")
+            except:
+                pass
+
+    def create_roi_mask(self, height, width):
+        mask = np.zeros((height+2, width+2), dtype=np.uint8)
+        split_y = int(height * self.horizontal_split) + 1
+        
+        cv2.rectangle(mask, (1, split_y), (width, height+1), 255, -1)
+        
+        left_triangle = np.array([
+            [1, split_y],
+            [int(width * self.left_horz_cut)+1, split_y],
+            [1, split_y + int((height-split_y)*self.left_vert_cut)]
+        ])
+        cv2.fillPoly(mask, [left_triangle], 0)
+        
+        right_triangle = np.array([
+            [width-1, split_y],
+            [width-int(width*self.right_horz_cut)-1, split_y],
+            [width-1, split_y + int((height-split_y)*self.right_vert_cut)]
+        ])
+        cv2.fillPoly(mask, [right_triangle], 0)
+        
+        return mask[1:-1, 1:-1]
+
+    def is_near_boundary(self, x, y, mask):
+        if x < self.boundary_margin or x > mask.shape[1]-self.boundary_margin:
+            return True
+        if y < self.boundary_margin or y > mask.shape[0]-self.boundary_margin:
+            return True
+        return False
 
     def create_roi_mask(self, height, width):
         """Create ROI mask with adjustable triangular cuts"""
@@ -122,23 +135,30 @@ class LaneDetectionNode(Node):
 
     def process_image(self, image):
         height, width = image.shape[:2]
+        mask = self.create_roi_mask(height, width)
         
         # Convert to grayscale
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        blurred = cv2.GaussianBlur(gray, (5,5), 0)
+        masked_blurred = cv2.bitwise_and(blurred, blurred, mask=mask)
         
-        # Canny edge detection
-        edges = cv2.Canny(gray, self.canny_low, self.canny_high)
+        edges = cv2.Canny(masked_blurred, self.canny_low, self.canny_high)
+        edges = cv2.bitwise_and(edges, edges, mask=mask)
         
-        # Create ROI mask with adjustable triangles
-        mask = self.create_roi_mask(height, width)
-        masked_edges = cv2.bitwise_and(edges, edges, mask=mask)
-        
-        # Detect lines
-        lines = cv2.HoughLinesP(masked_edges, 1, np.pi/180, self.hough_threshold,
+       lines = cv2.HoughLinesP(edges, 1, np.pi/180, self.hough_threshold,
                               minLineLength=self.hough_min_line_length,
                               maxLineGap=self.hough_max_line_gap)
         
-        # Calculate steering angle
+        filtered_lines = []
+        if lines is not None:
+            for line in lines:
+                x1,y1,x2,y2 = line[0]
+                if (mask[y1,x1] > 0 and mask[y2,x2] > 0 and
+                    not self.is_near_boundary(x1,y1,mask) and
+                    not self.is_near_boundary(x2,y2,mask)):
+                    filtered_lines.append(line)
+        
+        lines = np.array(filtered_lines) if filtered_lines else None
         steering_angle = self.calculate_steering_angle(lines, width, height)
         
         # Detect intersection
@@ -146,7 +166,6 @@ class LaneDetectionNode(Node):
         self.intersection_detections.append(stop_line_detected)
         confirmed_intersection = sum(self.intersection_detections) >= self.detection_threshold
         
-        # Create debug image
         debug_img = None
         if self.debug_mode:
             debug_img = image.copy()
@@ -155,80 +174,64 @@ class LaneDetectionNode(Node):
             if lines is not None:
                 line_img = np.zeros_like(image)
                 for line in lines:
-                    x1, y1, x2, y2 = line[0]
-                    cv2.line(line_img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                   x1,y1,x2,y2 = line[0]
+                    cv2.line(line_img, (x1,y1), (x2,y2), (0,255,0), 2)
                 debug_img = cv2.addWeighted(debug_img, 1, line_img, 1, 0)
-                
-                # Save lines image
-                cv2.imwrite(os.path.join(os.path.dirname(__file__), "detected_lines.png"), line_img)
+                cv2.imwrite("detected_lines.png", line_img)
             
-            # Draw ROI overlay
-            roi_overlay = np.zeros_like(image)
             split_y = int(height * self.horizontal_split)
-            cv2.rectangle(roi_overlay, (0, split_y), (width, height), (0, 0, 255), -1)
+            roi_overlay = np.zeros_like(image)
+            cv2.rectangle(roi_overlay, (0,split_y), (width,height), (0,0,255), -1)
             
-            # Draw triangles
             left_triangle = np.array([
                 [0, split_y],
-                [int(width * self.left_horz_cut), split_y],
-                [0, split_y + int((height - split_y) * self.left_vert_cut)]
+                [int(width*self.left_horz_cut), split_y],
+                [0, split_y + int((height-split_y)*self.left_vert_cut)]
             ])
             right_triangle = np.array([
                 [width, split_y],
-                [width - int(width * self.right_horz_cut), split_y],
-                [width, split_y + int((height - split_y) * self.right_vert_cut)]
+                [width-int(width*self.right_horz_cut), split_y],
+                [width, split_y + int((height-split_y)*self.right_vert_cut)]
             ])
-            cv2.fillPoly(roi_overlay, [left_triangle], (0, 0, 0))
-            cv2.fillPoly(roi_overlay, [right_triangle], (0, 0, 0))
+            cv2.fillPoly(roi_overlay, [left_triangle], (0,0,0))
+            cv2.fillPoly(roi_overlay, [right_triangle], (0,0,0))
             
             cv2.addWeighted(roi_overlay, 0.2, debug_img, 0.8, 0, debug_img)
             
-            # Add text overlay
-            cv2.putText(debug_img, f"Angle: {steering_angle:.1f}°", (10, 30),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
-            cv2.putText(debug_img, f"Intersection: {confirmed_intersection}", (10, 60),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+            cv2.putText(debug_img, f"Angle: {steering_angle:.1f}°", (10,30),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2)
+            cv2.putText(debug_img, f"Intersection: {confirmed_intersection}", (10,60),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2)
         
         return steering_angle, confirmed_intersection, debug_img
 
-    def detect_intersection(self, image, edges, main_mask):
+    def detect_intersection(self, image, edges, mask):
         height, width = image.shape[:2]
         split_y = int(height * self.horizontal_split)
+        roi_top = int(height - (height-split_y)*self.stop_line_roi_height)
         
-        # Define stop line ROI (bottom portion of main ROI)
-        roi_top = int(height - (height - split_y) * self.stop_line_roi_height)
+        stop_mask = np.zeros_like(edges)
+        cv2.rectangle(stop_mask, (0,roi_top), (width,height), 255, -1)
+        masked_edges = cv2.bitwise_and(edges, edges, mask=stop_mask)
         
-        # Create mask for stop line detection
-        mask = np.zeros_like(edges)
-        cv2.rectangle(mask, (0, roi_top), (width, height), 255, -1)
-        masked_edges = cv2.bitwise_and(edges, edges, mask=mask)
-        
-        # Detect lines
         lines = cv2.HoughLinesP(masked_edges, 1, np.pi/180, 
-                              threshold=self.hough_threshold // 2,
-                              minLineLength=self.hough_min_line_length // 2,
-                              maxLineGap=self.hough_max_line_gap * 2)
+                              self.hough_threshold//2,
+                              self.hough_min_line_length//2,
+                              self.hough_max_line_gap*2)
         
         if lines is None:
             return False
         
-        # Check for horizontal lines
         min_length = width * self.min_horizontal_length
-        detected = False
-        
         for line in lines:
-            x1, y1, x2, y2 = line[0]
-            length = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-            
+            x1,y1,x2,y2 = line[0]
+            length = np.sqrt((x2-x1)**2 + (y2-y1)**2)
             if length < min_length:
                 continue
-                
-            angle = np.arctan2(y2 - y1, x2 - x1) * 180 / np.pi
-            if abs(angle) < self.horizontal_angle_thresh or abs(angle - 180) < self.horizontal_angle_thresh:
-                detected = True
-                break
-                
-        return detected
+           angle = np.arctan2(y2-y1, x2-x1) * 180/np.pi
+            if abs(angle) < self.horizontal_angle_thresh or abs(angle-180) < self.horizontal_angle_thresh:
+                return True
+        return False
 
     def calculate_steering_angle(self, lines, image_width, image_height):
         if lines is None:
@@ -238,27 +241,22 @@ class LaneDetectionNode(Node):
         right_lines = []
         
         for line in lines:
-            x1, y1, x2, y2 = line[0]
-            parameters = np.polyfit((x1, x2), (y1, y2), 1)
-            slope = parameters[0]
-            
-            if slope < 0:  # Left lane
-                left_lines.append(parameters)
-            else:  # Right lane
-                right_lines.append(parameters)
+            x1,y1,x2,y2 = line[0]
+            slope = (y2-y1)/(x2-x1) if (x2-x1) != 0 else 0
+            if slope < 0:
+                left_lines.append((x1,y1,x2,y2))
+            else:
+                right_lines.append((x1,y1,x2,y2))
         
-        left_avg = np.average(left_lines, axis=0) if left_lines else None
-        right_avg = np.average(right_lines, axis=0) if right_lines else None
-        
-        if left_avg is not None and right_avg is not None:
-            left_x = (image_height - left_avg[1]) / left_avg[0]
-            right_x = (image_height - right_avg[1]) / right_avg[0]
-            midpoint = (left_x + right_x) / 2
-            deviation = midpoint - (image_width / 2)
-            steering_angle = -(deviation / (image_width / 2)) * 10
-        elif left_avg is not None:
+       if left_lines and right_lines:
+            left_avg = np.mean([x for x1,y1,x2,y2 in left_lines for x in [x1,x2]])
+            right_avg = np.mean([x for x1,y1,x2,y2 in right_lines for x in [x1,x2]])
+            midpoint = (left_avg + right_avg)/2
+            deviation = midpoint - (image_width/2)
+            steering_angle = -(deviation/(image_width/2)) * 10
+        elif left_lines:
             steering_angle = 10.0
-        elif right_avg is not None:
+        elif right_lines:
             steering_angle = -10.0
         else:
             steering_angle = 0.0
