@@ -23,6 +23,13 @@ class MinimalSubscriber(Node):
             self.red_callback,
             10
         )
+
+        self.subscription = self.create_subscription(
+            Bool,
+            'intersection_detected',
+            self.intersection_callback,
+            10
+        )
         self.subscription   # prevent unused variable warning
         self.get_logger().info('I initialized the subscriber')
 
@@ -31,6 +38,7 @@ class MinimalSubscriber(Node):
         self.in2 = 12
         self.pwm_pin = self.motor_init(self.in1, self.in2, self.en, 1000, 50)    # Change starting DC
         self.stop = False
+        self.intersection = False
 
 
     def motor_init(self, in1, in2, en, freq, dutyCycle):
@@ -71,20 +79,22 @@ class MinimalSubscriber(Node):
             self.pwm_pin.ChangeDutyCycle(dutyCycle)
         self.get_logger().info(f'duty cycle: {dutyCycle}\tdirection: {direction}')
 
-    def red_callback(self, msg):
-        """
-        If camera sees red light (True): stop.
-        If clear (False): go forward.
-        """
-
+    def intersection_callback(self, msg):
         if msg.data:
+            self.get_logger().info('Intersection detected')
+            self.intersection = True
+        else:
+            self.get_logger().info('No intersection')
+            self.intersection = False
+
+    def red_callback(self, msg):
+        if self.intersection and msg.data:
             self.get_logger().info('Stop Light detected, stopping motor')
             self.stop = True
-            time.sleep(2)
-            self.stop = False
         else:
             self.get_logger().info('No stop light')
             self.stop = False
+    
 
 
 def main(args=None):

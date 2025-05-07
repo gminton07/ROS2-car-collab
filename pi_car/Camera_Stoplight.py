@@ -64,7 +64,7 @@ class MinimalPublisher(Node):
         self.get_logger().info(f'count: {count}')
         # threshold of non-zero pixels to count as stoplight 
         lowerbound = 10
-        upperbound = 50
+        upperbound = 70
         if lowerbound<count<upperbound:
             result.data = True
         else:
