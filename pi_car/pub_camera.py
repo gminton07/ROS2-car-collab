@@ -41,7 +41,7 @@ class MinimalPublisher(Node):
             try:
                 img_msg = self.bridge.cv2_to_imgmsg(frame, 'bgr8')
                 self.publisher_.publish(img_msg)
-                self.get_logger().info(f'Image {self.i} published successfully!')
+                #self.get_logger().info(f'Image {self.i} published successfully!')
             except CvBridgeError as error:
                 print(error)
                 self.get_logger().info(f'Image failed to send :(')

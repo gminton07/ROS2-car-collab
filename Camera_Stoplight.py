@@ -60,7 +60,7 @@ class MinimalPublisher(Node):
 
         # count non-zero (red) pixels 
         count = np.sum(mask > 0)
-
+        prting(count)
         # threshold of non-zero pixels to count as stoplight 
         upperbound = 100000
         if count > upperbound:

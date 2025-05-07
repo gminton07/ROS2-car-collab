@@ -61,10 +61,11 @@ class MinimalPublisher(Node):
         cv2.imwrite('top-half.jpg',mask) 
         # count non-zero (red) pixels 
         count = np.sum(mask > 0)
-        print(count)
+        self.get_logger().info(f'count: {count}')
         # threshold of non-zero pixels to count as stoplight 
-        upperbound = 100000
-        if count > upperbound:
+        lowerbound = 10
+        upperbound = 50
+        if lowerbound<count<upperbound:
             result.data = True
         else:
             result.data = False

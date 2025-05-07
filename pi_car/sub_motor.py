@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-
+import time
 from std_msgs.msg import String, Bool
 
 import RPi.GPIO as GPIO
@@ -76,11 +76,14 @@ class MinimalSubscriber(Node):
         If camera sees red light (True): stop.
         If clear (False): go forward.
         """
+
         if msg.data:
+            self.get_logger().info('Stop Light detected, stopping motor')
             self.stop = True
             time.sleep(2)
             self.stop = False
         else:
+            self.get_logger().info('No stop light')
             self.stop = False
 
 
@@ -100,3 +103,4 @@ def main(args=None):
 if __name__ == '__main__':
  
     main()
+

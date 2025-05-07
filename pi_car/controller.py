@@ -122,7 +122,7 @@ class SubscriberPublisher(Node):
             self.publish_ult_obstacle(True)
         else:
             self.publish_ult_obstacle(False)
-        if (self.status == 3 or self.status == 6) and (self.i_ult % 10 == 1):
+        if (self.status == 3 or self.status == 6): # and (self.i_ult % 10 == 1):
             #print(f'distance: {self.distance}')
             self.get_logger().info(f'distance: {self.distance:.2f}')
             self.datafile.write(f'distance: {self.distance:.2f}\n')
@@ -130,7 +130,7 @@ class SubscriberPublisher(Node):
 
     def listener_camera(self, msg):
         self.frame =self.bridge.imgmsg_to_cv2(msg)
-        if (self.status == 4 or self.status == 6) and (self.i_cam % 10 == 1):
+        if (self.status == 4 or self.status == 6): # and (self.i_cam % 10 == 1):
             self.get_logger().info('Image received successfully!')
             self.datafile.write('Image received successfully!\n')
         self.i_cam += 1

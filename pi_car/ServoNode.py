@@ -60,6 +60,8 @@ class MinimalSubscriber(Node):
 
         self.turning = False  # For managing intersection turns
 
+        self.mid, self.left, self.right = self.load_servo_config()
+
     def load_servo_config(self):
         config_file = '/home/gabe/ros2_ws/src/pi_car/pi_car/PICAR_CONFIG.txt'
         if os.path.exists(config_file):
@@ -104,12 +106,12 @@ class MinimalSubscriber(Node):
     def listener_angle(self, msg):
         if not self.turning:
             line_angle = msg.data
+            slight_turn_amount = 2
             if (self.i % 10 == 0):
                 self.get_logger().info(f"Received lane steering angle: {line_angle}")
-            mid, left, right = self.load_servo_config()
-            mapped_angle = self.map_steering_angle(line_angle, mid, left, right)
+            #mapped_angle = self.map_steering_angle(line_angle, self.mid, self.left, self.right)
             #self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
-
+            mapped_angle = max(-10, self.current_angle - slight_turn_amount)
             self.servo_angle = mapped_angle
             self.current_angle = mapped_angle
             self.publish_servo_command()
