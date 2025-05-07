@@ -1,4 +1,11 @@
+# Ignore example code and cached files
 /pi_car/.SampleCode
+/pi_car/__pycache__
+
+# Ignore image files
 *.jpg
 *.png
-/pi_car/__pycache__
+
+# Duplicate files ignored
+Camera_Stoplight.py
+'Line Following and stop detect'
