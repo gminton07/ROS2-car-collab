@@ -1,0 +1,2 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"

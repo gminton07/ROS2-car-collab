@@ -1,0 +1,27 @@
+Publishing motor: "80 1"
+Publishing servo: "0 0 0"
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!

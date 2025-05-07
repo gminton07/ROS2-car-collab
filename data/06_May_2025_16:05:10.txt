@@ -1,0 +1,35 @@
+Publishing motor: "80 1"
+Publishing servo: "0 0 0"
+adc: 1023	adc_diff: 0	mvgAvg: 613.8
+distance: 2262.74
+mx: -142.56	my: 158.73	mz: -356.91	temp: 32.20
+ax: 10.11	ay: 0.70	az: 0.85	gx: -0.00	gy: -0.00	 gz: -0.12
+Image received successfully!
+adc: 127	adc_diff: -896	mvgAvg: 639.2
+distance: 2262.94
+ax: 10.60	ay: -0.57	az: -0.80	gx: -0.20	gy: -0.03	 gz: -0.05
+Image received successfully!
+mx: -149.75	my: 160.49	mz: -355.58	temp: 32.20
+adc: 31	adc_diff: -96	mvgAvg: 645.4
+distance: 2263.15
+ax: 9.85	ay: 0.85	az: 0.63	gx: -0.04	gy: -0.11	 gz: -0.02
+Image received successfully!
+adc: 1023	adc_diff: 992	mvgAvg: 645.4
+distance: 2262.97
+mx: -146.22	my: 162.43	mz: -354.91	temp: 32.20
+ax: 10.17	ay: -0.54	az: 0.33	gx: -0.04	gy: 0.03	 gz: 0.06
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 645.4
+distance: 2263.04
+ax: 10.44	ay: 1.61	az: 2.12	gx: -0.06	gy: -0.03	 gz: 0.01
+Image received successfully!
+mx: -147.21	my: 160.98	mz: -359.59	temp: 32.20
+adc: 769	adc_diff: -254	mvgAvg: 594.6
+distance: 2263.29
+ax: 7.79	ay: 1.35	az: -0.72	gx: -0.01	gy: 0.09	 gz: -0.03
+Image received successfully!
+adc: 1023	adc_diff: 254	mvgAvg: 773.8
+distance: 2263.10
+mx: -146.66	my: 163.93	mz: -357.58	temp: 32.20
+ax: 11.67	ay: 0.64	az: -0.11	gx: -0.10	gy: -0.01	 gz: -0.09
+Image received successfully!

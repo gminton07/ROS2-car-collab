@@ -1,0 +1,65 @@
+Publishing motor: "80 1"
+Publishing servo: "0 0 0"
+adc: 1023	adc_diff: 0	mvgAvg: 409.2
+distance: 171.88
+mx: -130.03	my: 184.78	mz: -321.08	temp: 32.20
+ax: 10.17	ay: -0.26	az: -0.41	gx: -0.03	gy: 0.00	 gz: -0.03
+adc: 1023	adc_diff: 0	mvgAvg: 613.8
+distance: 172.76
+Image received successfully!
+Image received successfully!
+ax: 9.70	ay: -0.66	az: -1.13	gx: -0.23	gy: -0.25	 gz: 0.09
+adc: 1023	adc_diff: 0	mvgAvg: 818.4
+distance: 178.11
+mx: -128.96	my: 190.30	mz: -318.81	temp: 32.20
+Image received successfully!
+ax: 9.27	ay: -1.64	az: 0.03	gx: -0.00	gy: -0.00	 gz: -0.03
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+distance: 178.13
+mx: -131.58	my: 186.89	mz: -319.01	temp: 32.20
+Image received successfully!
+ax: 9.96	ay: 0.23	az: -0.95	gx: -0.02	gy: -0.01	 gz: -0.00
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+distance: 179.44
+Image received successfully!
+ax: 9.64	ay: 0.01	az: -1.47	gx: -0.04	gy: -0.00	 gz: 0.03
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+distance: 179.10
+mx: -130.07	my: 185.36	mz: -320.31	temp: 32.20
+Image received successfully!
+ax: 10.69	ay: -1.67	az: -0.94	gx: -0.05	gy: -0.03	 gz: -0.01
+adc: 127	adc_diff: -896	mvgAvg: 843.8
+distance: 175.95
+mx: -128.19	my: 186.61	mz: -319.04	temp: 32.20
+Image received successfully!
+ax: 9.90	ay: -0.37	az: -2.32	gx: -0.04	gy: 0.01	 gz: -0.04
+adc: 127	adc_diff: 0	mvgAvg: 664.6
+distance: 176.26
+Image received successfully!
+ax: 10.25	ay: -0.15	az: -2.50	gx: -0.02	gy: -0.11	 gz: 0.02
+adc: 1023	adc_diff: 896	mvgAvg: 664.6
+distance: 179.44
+mx: -130.28	my: 192.94	mz: -333.32	temp: 32.20
+Image received successfully!
+ax: 11.02	ay: 2.23	az: -6.06	gx: -0.53	gy: 0.53	 gz: 0.98
+adc: 1023	adc_diff: 0	mvgAvg: 664.6
+distance: 192.43
+mx: -112.86	my: 167.73	mz: -340.02	temp: 32.20
+Image received successfully!
+ax: 8.44	ay: -1.54	az: -2.24	gx: 0.13	gy: -0.23	 gz: 0.27
+adc: 15	adc_diff: -1008	mvgAvg: 463.0
+distance: 175.76
+Image received successfully!
+ax: 7.71	ay: 0.20	az: -4.09	gx: -0.06	gy: 0.51	 gz: 0.54
+adc: 255	adc_diff: 240	mvgAvg: 488.6
+distance: 225.39
+mx: -105.04	my: 192.30	mz: -320.89	temp: 32.20
+Image received successfully!
+ax: 12.43	ay: 2.28	az: 1.19	gx: 0.20	gy: -0.16	 gz: -0.13
+adc: 511	adc_diff: 256	mvgAvg: 565.4
+distance: 185.46
+mx: -118.53	my: 197.06	mz: -328.39	temp: 32.20
+Image received successfully!
+ax: 9.63	ay: -0.70	az: -2.52	gx: -0.08	gy: -0.02	 gz: -0.04
+adc: 896	adc_diff: 385	mvgAvg: 540.0
+distance: 189.00

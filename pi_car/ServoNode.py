@@ -47,7 +47,7 @@ class MinimalSubscriber(Node):
         self.subscription_camera = self.create_subscription(
             Bool,
             'topic_red_detected',
-            self.listener_camera,
+            self.listener_red,
             10)
         
         self.subscription = self.create_subscription(
@@ -98,19 +98,23 @@ class MinimalSubscriber(Node):
         msg = String()
         msg.data = f"{nod} {swivel} {steer}"
         self.servo_command_publisher.publish(msg)
-        self.get_logger().info(f"Published to topic_servo: {msg.data}")
+        if (self.i % 10 == 0):
+            self.get_logger().info(f"Published to topic_servo: {msg.data}")
 
     def listener_angle(self, msg):
         if not self.turning:
             line_angle = msg.data
-            self.get_logger().info(f"Received lane steering angle: {line_angle}")
+            if (self.i % 10 == 0):
+                self.get_logger().info(f"Received lane steering angle: {line_angle}")
             mid, left, right = self.load_servo_config()
             mapped_angle = self.map_steering_angle(line_angle, mid, left, right)
-            self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
+            #self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
 
             self.servo_angle = mapped_angle
             self.current_angle = mapped_angle
             self.publish_servo_command()
+
+            self.i += 1
 
     def listener_intersection(self, msg):
         if msg.data and not self.turning:
@@ -131,7 +135,7 @@ class MinimalSubscriber(Node):
 
             self.turning = False
 
-    def listener_camera(self, msg):
+    def listener_red(self, msg):
         if msg.data and not self.turning:
             self.get_logger().info("Camera triggered evasive turn.")
             self.turning = True
