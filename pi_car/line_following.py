@@ -35,9 +35,9 @@ class LaneDetectionNode(Node):
         # Image processing parameters
         self.canny_low = 50
         self.canny_high = 150
-        self.hough_threshold = 50
-        self.hough_min_line_length = 50
-        self.hough_max_line_gap = 20
+        self.hough_threshold = 90
+        self.hough_min_line_length = 15
+        self.hough_max_line_gap = 30
         
         # Region of interest parameters
         self.roi_bottom_width = 1.0
@@ -45,7 +45,7 @@ class LaneDetectionNode(Node):
         self.roi_height = 0.5
         
         # Intersection detection parameters
-        self.stop_line_roi_height = 0.2  # Lower 20% of main ROI
+        self.stop_line_roi_height = 0.3  # Lower 20% of main ROI
         self.horizontal_angle_thresh = 10  # Degrees from horizontal to consider
         self.min_horizontal_length = 0.5   # Fraction of ROI width
         self.detection_history_length = 5  # Number of frames to consider
@@ -108,7 +108,7 @@ class LaneDetectionNode(Node):
         lines = cv2.HoughLinesP(masked_edges, 1, np.pi/180, self.hough_threshold,
                                minLineLength=self.hough_min_line_length,
                                maxLineGap=self.hough_max_line_gap)
-        
+        cv2.imwrite("maskedges.png", lines)
         # Calculate steering angle
         steering_angle = self.calculate_steering_angle(lines, width, height)
         
@@ -233,7 +233,7 @@ class LaneDetectionNode(Node):
             self.get_logger().info(f"Both lanes detected. Left X: {left_x}, Right X: {right_x}, Midpoint: {midpoint}, Deviation: {deviation}, Steering Angle: {steering_angle}")
         elif left_avg is not None:
             # Only left lane detected
-           steering_angle = 10.0  # Turn right
+            steering_angle = 10.0  # Turn right
             self.get_logger().info("Only left lane detected, steering angle set to 10.0 (turn right)")
         elif right_avg is not None:
             # Only right lane detected
@@ -245,10 +245,10 @@ class LaneDetectionNode(Node):
             self.get_logger().info("No lanes detected, steering angle set to 0.0")
         
         # Clamp the steering angle to ensure it's within -10 to 10
-        steering_angle = max(-10, min(10, steering_angle))
+        steering_angle = max(-10.0, min(10.0, steering_angle))
         self.get_logger().info(f"Final clamped steering angle: {steering_angle}")
         
-        return -steering_angle
+        return steering_angle
 
 def main(args=None):
     rclpy.init(args=args)

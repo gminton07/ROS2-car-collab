@@ -11,9 +11,6 @@ import time
 import os
 
 class MinimalSubscriber(Node):
-    
-    i = 0
-
     def __init__(self):
         super().__init__('minimal_subscriber')
 
@@ -30,6 +27,9 @@ class MinimalSubscriber(Node):
 
         # Publisher to topic_servo
         self.servo_command_publisher = self.create_publisher(String, 'topic_servo', 10)
+        timer_period = 0.1  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 0
 
         # Subscriptions
         self.subscription_angle = self.create_subscription(
@@ -59,7 +59,8 @@ class MinimalSubscriber(Node):
         self.get_logger().info('Initialized the subscriber node.')
 
         self.turning = False  # For managing intersection turns
-
+        self.line_turn = 'center'
+        self.line_angle = 0
         self.mid, self.left, self.right = self.load_servo_config()
 
     def load_servo_config(self):
@@ -100,23 +101,48 @@ class MinimalSubscriber(Node):
         msg = String()
         msg.data = f"{nod} {swivel} {steer}"
         self.servo_command_publisher.publish(msg)
-        if (self.i % 10 == 0):
-            self.get_logger().info(f"Published to topic_servo: {msg.data}")
+        self.get_logger().info(f"Published to topic_servo: {msg.data}")
 
     def listener_angle(self, msg):
         if not self.turning:
-            line_angle = msg.data
-            slight_turn_amount = 2
-            if (self.i % 10 == 0):
-                self.get_logger().info(f"Received lane steering angle: {line_angle}")
+            self.line_angle = msg.data
+            #slight_turn_amount = 2
+
+            self.get_logger().info(f"Received lane steering angle: {self.line_angle}")
+            if self.line_angle < 0:
+                self.line_turn = 'left'
+            elif self.line_angle > 0:
+                self.line_turn = 'right'
+            else:
+                self.line_turn = 'center'
+            
+            '''
             #mapped_angle = self.map_steering_angle(line_angle, self.mid, self.left, self.right)
             #self.get_logger().info(f"Mapped to servo angle: {mapped_angle}")
             mapped_angle = max(-10, self.current_angle - slight_turn_amount)
             self.servo_angle = mapped_angle
             self.current_angle = mapped_angle
             self.publish_servo_command()
+            '''
+    def timer_callback(self):
 
-            self.i += 1
+        if self.line_turn == 'left':
+            if self.current_angle > self.line_angle:
+                self.current_angle -= 1
+            else:
+                self.current_angle = self.line_angle
+        elif self.line_turn == 'right':
+            if self.current_angle < self.line_angle:
+                self.current_angle += 2
+            else:
+                self.current_angle = self.line_angle 
+        elif self.line_turn == 'center':
+            self.current_angle = 0
+        else:            
+            self.current_angle = 0
+        self.publish_servo_command() 
+        i =+ 1
+
 
     def listener_intersection(self, msg):
         if msg.data and not self.turning:
@@ -174,7 +200,6 @@ class MinimalSubscriber(Node):
             self.get_logger().info(f"Centering: 0")
         
         self.publish_servo_command()
-
 
 def main(args=None):
     rclpy.init(args=args)

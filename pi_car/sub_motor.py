@@ -66,10 +66,10 @@ class MinimalSubscriber(Node):
             [dutyCycle, direction] = str(msg.data).split()     # TODO: Change to preferred variables
             dutyCycle = float(dutyCycle)
             direction = int(direction)
-        # TODO: Make smarter to only call motor_direction when direction value changes?
+            # TODO: Make smarter to only call motor_direction when direction value changes?
             self.motor_direction(self.in1, self.in2, direction)
             self.pwm_pin.ChangeDutyCycle(dutyCycle)
-            self.get_logger().info(f'duty cycle: {dutyCycle}\tdirection: {direction}')
+        self.get_logger().info(f'duty cycle: {dutyCycle}\tdirection: {direction}')
 
     def red_callback(self, msg):
         """
