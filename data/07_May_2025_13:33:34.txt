@@ -1,0 +1,569 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+mx: -89.61	my: 160.21	mz: -318.35	temp: 33.80
+ax: 10.19	ay: -0.15	az: 0.81	gx: -0.04	gy: 0.00	 gz: -0.00
+distance: 155.84
+distance: 155.43
+distance: 154.15
+distance: 151.42
+distance: 150.43
+distance: 149.53
+adc: 983	adc_diff: 41	mvgAvg: 385.0
+distance: 292.33
+distance: 162.70
+distance: 288.67
+distance: 236.80
+distance: 287.44
+distance: 290.74
+Image received successfully!
+distance: 278.83
+Image received successfully!
+Image received successfully!
+distance: 289.87
+Image received successfully!
+Image received successfully!
+distance: 276.19
+distance: 164.59
+Image received successfully!
+Image received successfully!
+distance: 272.54
+distance: 373.93
+Image received successfully!
+distance: 511.86
+Image received successfully!
+distance: 258.47
+Image received successfully!
+distance: 229.85
+Image received successfully!
+distance: 226.67
+Image received successfully!
+ax: 11.74	ay: 0.59	az: 2.36	gx: -0.20	gy: 0.05	 gz: 0.05
+Image received successfully!
+distance: 219.86
+Image received successfully!
+distance: 215.94
+Image received successfully!
+distance: 213.19
+Image received successfully!
+distance: 235.99
+adc: 962	adc_diff: -21	mvgAvg: 577.4
+Image received successfully!
+distance: 229.01
+Image received successfully!
+distance: 341.11
+Image received successfully!
+distance: 336.65
+Image received successfully!
+distance: 460.91
+mx: -154.54	my: 170.48	mz: -326.56	temp: 33.80
+Image received successfully!
+distance: 323.10
+Image received successfully!
+distance: 449.80
+Image received successfully!
+distance: 263.15
+Image received successfully!
+distance: 256.81
+Image received successfully!
+distance: 253.34
+Image received successfully!
+distance: 247.30
+Image received successfully!
+distance: 240.95
+Image received successfully!
+distance: 235.22
+Image received successfully!
+distance: 229.41
+Image received successfully!
+distance: 225.40
+Image received successfully!
+distance: 219.02
+Image received successfully!
+distance: 212.51
+ax: 11.36	ay: 0.60	az: -0.71	gx: -0.28	gy: 0.12	 gz: -0.00
+Image received successfully!
+distance: 206.71
+Image received successfully!
+distance: 202.13
+Image received successfully!
+distance: 194.32
+Image received successfully!
+distance: 188.17
+adc: 914	adc_diff: -48	mvgAvg: 760.2
+Image received successfully!
+distance: 182.85
+Image received successfully!
+distance: 175.61
+Image received successfully!
+distance: 168.86
+Image received successfully!
+distance: 162.38
+Image received successfully!
+distance: 156.35
+Image received successfully!
+distance: 151.23
+Image received successfully!
+distance: 144.79
+Image received successfully!
+distance: 136.56
+Image received successfully!
+distance: 131.96
+Image received successfully!
+distance: 124.68
+Image received successfully!
+distance: 118.49
+Image received successfully!
+distance: 77.13
+Image received successfully!
+distance: 72.19
+distance: 142.39
+Image received successfully!
+mx: -106.79	my: 224.87	mz: -316.58	temp: 33.80
+Image received successfully!
+distance: 96.99
+Image received successfully!
+distance: 147.52
+ax: 8.40	ay: -1.57	az: 1.23	gx: -0.39	gy: -0.09	 gz: -0.05
+Image received successfully!
+distance: 150.05
+Image received successfully!
+distance: 145.08
+Image received successfully!
+distance: 144.34
+Image received successfully!
+distance: 139.83
+adc: 929	adc_diff: 15	mvgAvg: 946.0
+Image received successfully!
+distance: 155.94
+Image received successfully!
+distance: 129.63
+Image received successfully!
+distance: 221.00
+Image received successfully!
+distance: 136.38
+Image received successfully!
+distance: 130.34
+Image received successfully!
+distance: 136.79
+Image received successfully!
+distance: 122.04
+Image received successfully!
+distance: 127.36
+Image received successfully!
+distance: 119.72
+distance: 112.99
+Image received successfully!
+Image received successfully!
+distance: 129.81
+Image received successfully!
+distance: 131.58
+Image received successfully!
+distance: 117.97
+Image received successfully!
+distance: 157.74
+Image received successfully!
+distance: 106.85
+Image received successfully!
+distance: 191.91
+ax: 8.94	ay: -1.78	az: -0.45	gx: -0.33	gy: 0.19	 gz: -0.16
+Image received successfully!
+distance: 191.41
+Image received successfully!
+distance: 178.99
+Image received successfully!
+distance: 174.01
+Image received successfully!
+distance: 243.70
+adc: 906	adc_diff: -23	mvgAvg: 938.8
+Image received successfully!
+distance: 164.92
+Image received successfully!
+distance: 282.47
+Image received successfully!
+distance: 152.93
+Image received successfully!
+distance: 145.26
+mx: -102.25	my: 165.62	mz: -319.35	temp: 33.80
+distance: 137.71
+Image received successfully!
+Image received successfully!
+distance: 134.39
+Image received successfully!
+distance: 125.41
+Image received successfully!
+distance: 118.61
+Image received successfully!
+distance: 110.61
+Image received successfully!
+distance: 106.47
+Image received successfully!
+distance: 182.90
+Image received successfully!
+distance: 171.64
+Image received successfully!
+distance: 176.71
+Image received successfully!
+distance: 150.77
+Image received successfully!
+distance: 142.51
+Image received successfully!
+distance: 128.37
+ax: 9.72	ay: -1.71	az: 2.64	gx: -0.38	gy: -0.03	 gz: -0.05
+Image received successfully!
+distance: 121.92
+Image received successfully!
+distance: 116.26
+Image received successfully!
+distance: 107.55
+Image received successfully!
+distance: 108.45
+adc: 933	adc_diff: 27	mvgAvg: 928.8
+Image received successfully!
+distance: 98.21
+Image received successfully!
+distance: 101.04
+Image received successfully!
+distance: 93.89
+Image received successfully!
+distance: 77.66
+Image received successfully!
+distance: 73.51
+Image received successfully!
+distance: 63.08
+Image received successfully!
+distance: 57.81
+Image received successfully!
+distance: 63.37
+Image received successfully!
+distance: 65.23
+Image received successfully!
+distance: 51.66
+Image received successfully!
+Publishing motor: "0 0"
+distance: 47.87
+Image received successfully!
+Publishing motor: "0 0"
+distance: 48.20
+Image received successfully!
+Publishing motor: "0 0"
+distance: 47.09
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.76
+mx: -110.25	my: 216.08	mz: -301.43	temp: 33.00
+Publishing motor: "0 0"
+distance: 40.67
+Image received successfully!
+Image received successfully!
+Publishing motor: "0 0"
+distance: 41.76
+ax: 10.26	ay: -0.19	az: 0.63	gx: -0.06	gy: -0.06	 gz: 0.07
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.04
+Image received successfully!
+Publishing motor: "0 0"
+distance: 41.36
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.49
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.75
+adc: 793	adc_diff: -140	mvgAvg: 895.0
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.30
+Image received successfully!
+Publishing motor: "0 0"
+distance: 44.36
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.38
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.31
+Publishing motor: "0 0"
+distance: 43.56
+Image received successfully!
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.20
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.53
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.64
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.12
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.49
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.25
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.94
+Image received successfully!
+Publishing motor: "0 0"
+distance: 44.36
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.09
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.10
+Image received successfully!
+Publishing motor: "0 0"
+distance: 42.68
+ax: 10.10	ay: -0.95	az: -0.22	gx: -0.04	gy: -0.00	 gz: 0.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 43.10
+Image received successfully!
+Publishing motor: "0 0"
+distance: 44.36
+Image received successfully!
+Publishing motor: "0 0"
+distance: 10.81
+Image received successfully!
+Publishing motor: "0 0"
+distance: 7.22
+adc: 939	adc_diff: 146	mvgAvg: 900.0
+Image received successfully!
+Publishing motor: "0 0"
+distance: 6.96
+Image received successfully!
+Publishing motor: "0 0"
+distance: 8.13
+Image received successfully!
+Publishing motor: "0 0"
+distance: 7.06
+Image received successfully!
+Publishing motor: "0 0"
+distance: 8.46
+mx: -112.05	my: 216.75	mz: -303.84	temp: 33.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 8.58
+Image received successfully!
+Publishing motor: "0 0"
+distance: 7.83
+Image received successfully!
+Publishing motor: "0 0"
+distance: 9.83
+Image received successfully!
+Publishing motor: "0 0"
+distance: 11.69
+Image received successfully!
+Publishing motor: "0 0"
+distance: 7.59
+Image received successfully!
+Publishing motor: "0 0"
+distance: 9.38
+Image received successfully!
+distance: 58.97
+Image received successfully!
+Publishing motor: "0 0"
+distance: 9.42
+Image received successfully!
+Publishing motor: "0 0"
+distance: 9.65
+Image received successfully!
+Publishing motor: "0 0"
+distance: 11.13
+Image received successfully!
+distance: 66.44
+Image received successfully!
+distance: 65.84
+ax: 7.56	ay: 0.29	az: 0.83	gx: -0.50	gy: 0.05	 gz: -0.39
+Image received successfully!
+Publishing motor: "0 0"
+distance: 10.46
+Image received successfully!
+Publishing motor: "0 0"
+distance: 11.80
+Image received successfully!
+distance: 79.52
+Image received successfully!
+distance: 83.52
+adc: 827	adc_diff: -112	mvgAvg: 879.6
+Image received successfully!
+distance: 78.38
+Image received successfully!
+distance: 88.27
+Image received successfully!
+distance: 87.39
+Image received successfully!
+distance: 90.20
+Image received successfully!
+distance: 89.46
+Image received successfully!
+distance: 88.47
+Image received successfully!
+distance: 86.51
+Image received successfully!
+distance: 86.42
+Image received successfully!
+distance: 86.69
+Image received successfully!
+distance: 86.30
+Image received successfully!
+distance: 87.68
+Image received successfully!
+distance: 125.87
+Image received successfully!
+distance: 60.43
+Image received successfully!
+distance: 85.91
+Image received successfully!
+mx: -123.87	my: 169.62	mz: -298.53	temp: 33.00
+distance: 84.29
+Image received successfully!
+distance: 84.79
+ax: 9.25	ay: -1.14	az: 0.50	gx: 0.14	gy: -0.07	 gz: 0.28
+Image received successfully!
+distance: 82.46
+Image received successfully!
+distance: 79.77
+Image received successfully!
+distance: 78.55
+Image received successfully!
+distance: 58.55
+adc: 834	adc_diff: 7	mvgAvg: 865.2
+Image received successfully!
+distance: 75.93
+Image received successfully!
+distance: 74.90
+Image received successfully!
+distance: 72.27
+Image received successfully!
+distance: 68.38
+Image received successfully!
+distance: 65.38
+Image received successfully!
+distance: 61.83
+distance: 61.37
+Image received successfully!
+Image received successfully!
+distance: 62.40
+Image received successfully!
+distance: 61.95
+Image received successfully!
+distance: 64.36
+distance: 74.18
+Image received successfully!
+Image received successfully!
+distance: 84.56
+distance: 94.18
+Image received successfully!
+Image received successfully!
+distance: 112.61
+Image received successfully!
+distance: 128.43
+Image received successfully!
+distance: 176.28
+ax: 11.47	ay: -0.25	az: -0.12	gx: 0.84	gy: -0.21	 gz: -0.23
+Image received successfully!
+distance: 175.44
+Image received successfully!
+distance: 180.07
+Image received successfully!
+distance: 267.90
+Image received successfully!
+distance: 151.41
+adc: 833	adc_diff: -1	mvgAvg: 845.2
+Image received successfully!
+distance: 229.48
+Image received successfully!
+distance: 207.44
+Image received successfully!
+distance: 256.47
+Image received successfully!
+distance: 261.68
+mx: -123.41	my: 178.56	mz: -296.96	temp: 33.00
+Image received successfully!
+Image received successfully!
+distance: 2266.79
+distance: 122.21
+Image received successfully!
+Image received successfully!
+distance: 2266.40
+Image received successfully!
+distance: 2266.20
+Image received successfully!
+Image received successfully!
+distance: 2266.10
+distance: 117.26
+Image received successfully!
+distance: 119.39
+Image received successfully!
+distance: 117.95
+Image received successfully!
+Image received successfully!
+distance: 2266.20
+distance: 462.21
+Image received successfully!
+ax: 9.46	ay: -3.15	az: -0.95	gx: -0.60	gy: 0.44	 gz: 0.90
+Image received successfully!
+distance: 2266.27
+Image received successfully!
+distance: 2265.49
+Image received successfully!
+Image received successfully!
+distance: 2265.54
+adc: 848	adc_diff: 15	mvgAvg: 856.2
+Image received successfully!
+distance: 2262.34
+Image received successfully!
+distance: 2265.75
+Image received successfully!
+Image received successfully!
+distance: 2266.29
+distance: 290.57
+Image received successfully!
+distance: 293.35
+Image received successfully!
+Publishing motor: "0 0"
+distance: 10.50
+Image received successfully!
+Image received successfully!
+distance: 2265.78
+Image received successfully!
+distance: 2265.97
+Publishing motor: "0 0"
+distance: 15.10
+Image received successfully!
+Publishing motor: "0 0"
+distance: 11.59
+Image received successfully!
+Publishing motor: "0 0"
+distance: 11.17
+Image received successfully!
+Image received successfully!
+distance: 2268.22
+Image received successfully!
+distance: 2267.24
+Publishing motor: "0 0"
+distance: 14.70
+mx: -120.35	my: 220.91	mz: -261.21	temp: 33.00
+Image received successfully!
+Publishing motor: "0 0"
+distance: 12.21
+Image received successfully!
+distance: 176.24
+ax: 10.08	ay: 0.00	az: 0.34	gx: -0.04	gy: 0.02	 gz: 0.00
+Image received successfully!
+distance: 176.15
+Image received successfully!
+distance: 310.15
+distance: 91.80
+Image received successfully!
+Image received successfully!
+distance: 176.03
+adc: 709	adc_diff: -139	mvgAvg: 810.2
+Image received successfully!
+distance: 177.74

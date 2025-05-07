@@ -1,0 +1,141 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+distance: 392.43
+distance: 529.47
+distance: 393.26
+distance: 283.68
+distance: 283.38
+distance: 282.91
+distance: 282.15
+distance: 284.44
+distance: 280.23
+distance: 276.22
+distance: 274.86
+adc: 922	adc_diff: 9	mvgAvg: 367.0
+distance: 381.96
+distance: 378.42
+ax: 10.08	ay: -0.90	az: -0.42	gx: 0.00	gy: -0.01	 gz: -0.02
+distance: 273.01
+distance: 373.73
+distance: 372.53
+distance: 238.97
+distance: 221.82
+distance: 220.46
+distance: 215.08
+distance: 209.29
+mx: -147.33	my: 170.68	mz: -321.60	temp: 33.00
+distance: 209.26
+distance: 226.10
+distance: 196.08
+distance: 190.84
+distance: 185.38
+distance: 180.70
+distance: 175.55
+distance: 196.35
+distance: 164.58
+distance: 161.07
+adc: 959	adc_diff: 37	mvgAvg: 558.8
+distance: 150.27
+Image received successfully!
+distance: 160.81
+Image received successfully!
+ax: 14.82	ay: 2.27	az: -0.85	gx: -0.41	gy: 0.47	 gz: 0.26
+distance: 152.71
+Image received successfully!
+distance: 138.31
+Image received successfully!
+distance: 132.30
+Image received successfully!
+distance: 125.31
+Image received successfully!
+distance: 120.87
+Image received successfully!
+distance: 127.65
+Image received successfully!
+distance: 255.85
+Image received successfully!
+distance: 248.23
+Image received successfully!
+distance: 198.43
+Image received successfully!
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"
+Publishing motor: "0 0"

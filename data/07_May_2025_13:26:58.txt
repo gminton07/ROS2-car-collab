@@ -1,0 +1,12 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+mx: -77.69	my: 200.79	mz: -328.74	temp: 33.00
+distance: 106.47
+distance: 103.67
+distance: 107.24
+distance: 139.63
+distance: 106.14
+adc: 1023	adc_diff: 0	mvgAvg: 409.2
+distance: 106.89
+distance: 136.76
+distance: 105.91

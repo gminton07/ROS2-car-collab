@@ -1,0 +1,79 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+mx: -104.54	my: 140.38	mz: -420.12	temp: 33.80
+adc: 15	adc_diff: -1008	mvgAvg: 412.2
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 10.18	ay: -0.03	az: 0.67	gx: -0.04	gy: -0.00	 gz: -0.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 1023	adc_diff: 1008	mvgAvg: 616.8
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -104.41	my: 139.96	mz: -419.94	temp: 34.60
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 10.19	ay: -0.06	az: 0.71	gx: -0.04	gy: 0.00	 gz: -0.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 821.4
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -104.33	my: 140.54	mz: -420.03	temp: 34.60
+Image received successfully!
+Image received successfully!
+ax: 10.19	ay: 0.02	az: 0.68	gx: -0.04	gy: -0.00	 gz: -0.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 1023	adc_diff: 0	mvgAvg: 821.4
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!

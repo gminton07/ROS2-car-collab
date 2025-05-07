@@ -1,0 +1,25 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0
+adc: 1023	adc_diff: 0	mvgAvg: 1023.0

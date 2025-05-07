@@ -1,0 +1,424 @@
+Publishing motor: "50 1"
+Publishing servo: "0 0 0"
+mx: -79.25	my: 156.50	mz: -314.58	temp: 33.80
+ax: 10.23	ay: -0.20	az: 0.56	gx: -0.04	gy: 0.00	 gz: -0.01
+distance: 568.01
+Image received successfully!
+distance: 553.70
+Image received successfully!
+distance: 554.12
+Image received successfully!
+distance: 564.99
+Image received successfully!
+distance: 535.55
+Image received successfully!
+distance: 287.06
+Image received successfully!
+distance: 420.66
+Image received successfully!
+distance: 558.86
+Image received successfully!
+distance: 484.30
+Image received successfully!
+distance: 509.09
+Image received successfully!
+distance: 421.06
+Image received successfully!
+distance: 417.59
+Image received successfully!
+adc: 930	adc_diff: 8	mvgAvg: 554.8
+distance: 418.34
+Image received successfully!
+distance: 2266.58
+Image received successfully!
+distance: 2748.33
+Image received successfully!
+distance: 338.17
+Image received successfully!
+distance: 147.26
+Image received successfully!
+distance: 203.54
+Image received successfully!
+distance: 1792.04
+Image received successfully!
+distance: 281.58
+Image received successfully!
+distance: 134.41
+ax: 8.22	ay: -0.40	az: 4.41	gx: 0.01	gy: -0.38	 gz: -0.02
+distance: 1559.07
+distance: 58.52
+Image received successfully!
+distance: 497.81
+Image received successfully!
+distance: 510.15
+Image received successfully!
+mx: -163.66	my: 187.26	mz: -324.49	temp: 33.80
+distance: 343.90
+Image received successfully!
+distance: 195.61
+Image received successfully!
+distance: 169.10
+Image received successfully!
+adc: 954	adc_diff: 24	mvgAvg: 745.6
+ax: 10.08	ay: -2.13	az: -0.09	gx: -0.31	gy: 0.17	 gz: -0.08
+distance: 224.89
+Image received successfully!
+distance: 173.85
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 912	adc_diff: -42	mvgAvg: 928.0
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -119.11	my: 160.32	mz: -295.96	temp: 33.80
+Image received successfully!
+ax: 10.52	ay: 0.83	az: 2.61	gx: -0.34	gy: 0.03	 gz: -0.07
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 885	adc_diff: -27	mvgAvg: 920.6
+ax: 10.79	ay: -0.36	az: -0.51	gx: -0.03	gy: 0.06	 gz: -0.01
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -81.95	my: 200.83	mz: -281.93	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 906	adc_diff: 21	mvgAvg: 917.4
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.65	ay: 0.46	az: 1.45	gx: -0.05	gy: -0.02	 gz: 0.02
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 939	adc_diff: 33	mvgAvg: 919.2
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -83.62	my: 190.41	mz: -317.51	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 10.92	ay: 4.45	az: 0.62	gx: -0.68	gy: -1.19	 gz: 1.08
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 762	adc_diff: -177	mvgAvg: 880.8
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.37	ay: -1.45	az: -3.38	gx: 0.01	gy: -0.03	 gz: 0.04
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -111.53	my: 180.41	mz: -314.76	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 726	adc_diff: -36	mvgAvg: 843.6
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.25	ay: 0.69	az: -2.82	gx: 0.59	gy: -0.07	 gz: 0.07
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 921	adc_diff: 195	mvgAvg: 850.8
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -114.72	my: 181.16	mz: -350.39	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.70	ay: 0.07	az: -3.32	gx: -0.47	gy: -0.36	 gz: 0.25
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 910	adc_diff: -11	mvgAvg: 851.6
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.24	ay: -0.46	az: -5.87	gx: -0.94	gy: 0.10	 gz: 0.50
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -122.98	my: 175.43	mz: -318.77	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 838	adc_diff: -72	mvgAvg: 831.4
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.05	ay: -0.74	az: -3.46	gx: -1.42	gy: -0.16	 gz: 0.24
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 884	adc_diff: 46	mvgAvg: 855.8
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -140.64	my: 170.18	mz: -327.10	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 7.78	ay: -1.61	az: -5.63	gx: 0.92	gy: -0.24	 gz: -0.30
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 793	adc_diff: -91	mvgAvg: 869.2
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 7.72	ay: -1.67	az: -6.04	gx: -0.75	gy: 0.26	 gz: 0.63
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -143.55	my: 170.33	mz: -325.34	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 881	adc_diff: 88	mvgAvg: 861.2
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.49	ay: -0.54	az: -5.18	gx: 0.14	gy: -0.24	 gz: -0.75
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 908	adc_diff: 27	mvgAvg: 860.8
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -100.38	my: 186.54	mz: -347.96	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.66	ay: -3.18	az: -5.06	gx: 0.01	gy: -0.28	 gz: 0.86
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 891	adc_diff: -17	mvgAvg: 871.4
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 8.85	ay: -1.03	az: -5.73	gx: -0.73	gy: -0.23	 gz: 0.28
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -147.93	my: 188.76	mz: -324.09	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 479	adc_diff: -412	mvgAvg: 790.4
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 8.03	ay: -0.22	az: -5.19	gx: -0.48	gy: -0.03	 gz: -0.06
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+adc: 801	adc_diff: 322	mvgAvg: 792.0
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+mx: -147.18	my: 196.66	mz: -325.83	temp: 33.00
+Image received successfully!
+Image received successfully!
+Image received successfully!
+ax: 9.94	ay: -1.05	az: -0.47	gx: -0.35	gy: 0.06	 gz: 0.37
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
+Image received successfully!
